@@ -1,4 +1,4 @@
-import { ctx } from "../main";
+import { ctx } from "../constants";
 
 export class Enemy {
     image: HTMLImageElement;
@@ -33,7 +33,9 @@ export class Enemy {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.rect(this.x , this.y,this.height,this.height);
+        ctx.strokeStyle = 'blue'; // Set the color of the rectangle
+        ctx.lineWidth = 2; // Set the width of the rectangle border
+        ctx.strokeRect(this.x, this.y, this.height, this.height); // Draw the rectangle
         ctx.drawImage(this.image, this.x , this.y,this.height,this.height);
     }
 
