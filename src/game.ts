@@ -1,8 +1,8 @@
 import bgimg from '/background/large_map_image.png'
-import { Player } from './entities/Player';
+import { Player, offsetX, offsetY } from './entities/Player';
 import { keys } from './elements/input';
 import { enemyArray,generateEnemy } from './entities/Enemy';
-import { canvas,ctx } from './constants';
+import { SCREEN, canvas,ctx } from './constants';
 import { isColliding } from './utils/collision';
 import { drawHealthBar } from './elements/healthbar';
 import { drawPaused } from './elements/pause';
@@ -15,7 +15,6 @@ background.src = bgimg;
 let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 
 const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
-
 
 
 let lastFrame = 0;
@@ -40,12 +39,12 @@ export function gameLoop(timestamp:number) {
         enemySpawnTimer = 0; // Reset the timer
     }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(background,0,0,canvas.width,canvas.height);
+    ctx.clearRect(-offsetX, -offsetY, canvas.width, canvas.height);
+    ctx.drawImage(background,0,0,SCREEN.width,SCREEN.height);
     
     addRemoveCross(timestamp);
 
-    player.update(keys, ctx, canvas);
+    player.update(keys, ctx);
     
     
 

@@ -1,5 +1,8 @@
-import { ctx } from "../constants";
+import { SCREEN, ctx, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
+
+export var offsetX = 0;
+export var offsetY = 0;
 export class Player {
     image: HTMLImageElement;
     x: number;
@@ -40,18 +43,52 @@ export class Player {
         };
     }
 
-    move(keys: { [key: string]: boolean }, canvas: HTMLCanvasElement) {
+    move(keys: { [key: string]: boolean }) {
         let moved = false;
-
-        if (keys['w'] || keys['ArrowUp']) { this.y -= this.speed; moved = true; } // Move up
-        if (keys['a'] || keys['ArrowLeft']) { this.x -= this.speed; moved = true; if (!this.isFlipped) this.isFlipped = true; } // Move left
-        if (keys['s'] || keys['ArrowDown']) { this.y += this.speed; moved = true; } // Move down
-        if (keys['d'] || keys['ArrowRight']) { this.x += this.speed; moved = true; if (this.isFlipped) this.isFlipped = false; } // Move right
+        console.log(offsetX,offsetY);
+        // Move up
+        if (keys['w'] || keys['ArrowUp']) { 
+            this.y -= this.speed;
+            if(offsetY < maxOffsetY){
+                ctx.translate(0,this.speed); 
+                offsetY += this.speed; 
+            }
+            moved = true;
+        } 
+        // Move left
+        if (keys['a'] || keys['ArrowLeft']) { 
+            this.x -= this.speed; 
+            if(offsetX < maxOffsetX){
+                ctx.translate(this.speed,0); 
+                offsetX += this.speed; 
+            }
+            moved = true; 
+            if (!this.isFlipped) this.isFlipped = true; 
+        } 
+        // Move down
+        if (keys['s'] || keys['ArrowDown']) { 
+            this.y += this.speed; 
+            if(offsetY > minOffsetY){
+                ctx.translate(0,-this.speed); 
+                offsetY -= this.speed; 
+            }
+            moved = true; 
+        } 
+        // Move right
+        if (keys['d'] || keys['ArrowRight']) { 
+            this.x += this.speed; 
+            if(offsetX > minOffsetX ){
+                ctx.translate(-this.speed,0); 
+                offsetX -= this.speed;  
+            }
+            moved = true; 
+            if (this.isFlipped) this.isFlipped = false; 
+        } 
 
 
         // Boundary checks
-        this.x = Math.max(0, Math.min(canvas.width - this.height, this.x));
-        this.y = Math.max(0, Math.min(canvas.height - this.height, this.y));
+        this.x = Math.max(0, Math.min(SCREEN.width - this.height, this.x));
+        this.y = Math.max(0, Math.min(SCREEN.height - this.height, this.y));
 
         if (moved) {
             if (this.moveAudio.paused) {
@@ -74,8 +111,8 @@ export class Player {
         else ctx.drawImage(this.image, this.x , this.y, this.height,this.height);
     }
 
-    update(keys: { [key: string]: boolean }, ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-        this.move(keys, canvas);
+    update(keys: { [key: string]: boolean }, ctx: CanvasRenderingContext2D) {
+        this.move(keys);
         this.draw(ctx);
     }
 
