@@ -1,4 +1,5 @@
 import { ctx } from "../constants";
+import { drawFlippedImage } from "../utils/ImgFlip";
 export class Player {
     image: HTMLImageElement;
     x: number;
@@ -12,6 +13,7 @@ export class Player {
     numOfFrames:number;
     lastAnimationFrame:number;
     hitImg:HTMLImageElement;
+    isFlipped:boolean;
 
     constructor(imageSrc: string, x: number, y: number,health:number = 10, height:number = 40, speed: number = 4) {
         this.image = new Image();
@@ -30,6 +32,7 @@ export class Player {
         this.lastAnimationFrame = 0;
         this.hitImg = new Image();
         this.hitImg.src ='/hit_effect/hit-effect.png'
+        this.isFlipped = false;
     
         // Ensure the image is loaded before drawing
         this.image.onload = () => {
@@ -41,9 +44,9 @@ export class Player {
         let moved = false;
 
         if (keys['w'] || keys['ArrowUp']) { this.y -= this.speed; moved = true; } // Move up
-        if (keys['a'] || keys['ArrowLeft']) { this.x -= this.speed; moved = true; } // Move left
+        if (keys['a'] || keys['ArrowLeft']) { this.x -= this.speed; moved = true; if (!this.isFlipped) this.isFlipped = true; } // Move left
         if (keys['s'] || keys['ArrowDown']) { this.y += this.speed; moved = true; } // Move down
-        if (keys['d'] || keys['ArrowRight']) { this.x += this.speed; moved = true; } // Move right
+        if (keys['d'] || keys['ArrowRight']) { this.x += this.speed; moved = true; if (this.isFlipped) this.isFlipped = false; } // Move right
 
 
         // Boundary checks
@@ -67,7 +70,8 @@ export class Player {
         ctx.lineWidth = 2; // Set the width of the rectangle border
         ctx.strokeRect(this.x, this.y, this.height, this.height); // Draw the rectangle
 
-        ctx.drawImage(this.image, this.x , this.y, this.height,this.height);
+        if(this.isFlipped) drawFlippedImage(ctx,this.image,this.x,this.y,this.height,this.height);
+        else ctx.drawImage(this.image, this.x , this.y, this.height,this.height);
     }
 
     update(keys: { [key: string]: boolean }, ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {

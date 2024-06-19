@@ -1,8 +1,8 @@
 export function drawHealthBar(ctx: CanvasRenderingContext2D, currHealth: number, maxHealth: number) {
     const barWidth = 200;
     const barHeight = 20;
-    const x = 10;
-    const y = 10;
+    const x = 20;
+    const y = 36;
 
     // Calculate the width of the current health
     const currHealthWidth = (currHealth / maxHealth) * barWidth;
@@ -18,5 +18,5 @@ export function drawHealthBar(ctx: CanvasRenderingContext2D, currHealth: number,
     // Draw the health text
     ctx.fillStyle = 'white';
     ctx.font = '16px Arial';
-    ctx.fillText(`HP: ${currHealth} / ${maxHealth}`, x + 10, y + 16);
+    ctx.fillText(`HP: ${currHealth} / ${maxHealth}`, x+10 , y+16 );
 }

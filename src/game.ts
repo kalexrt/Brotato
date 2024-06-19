@@ -5,6 +5,7 @@ import { Enemy } from './entities/Enemy';
 import { canvas,ctx } from './constants';
 import { isColliding } from './utils/collision';
 import { drawHealthBar } from './elements/healthbar';
+import { drawPaused } from './elements/pause';
 
 const background =  new Image();
 background.src = bgimg;
@@ -15,13 +16,8 @@ let lastFrame = 0;
 let pauseSet = new Set ()
 
 export function gameLoop(timestamp:number) {
-    // if (keys['p'] || keys['P']) {
-    //     console.log('pause')
-    //     if(pauseSet.has('p')) pauseSet.delete('p');
-    //     else pauseSet.add('p');
-    // }
-
     if (pauseSet.has('p')) {
+        drawPaused();
         lastFrame = timestamp;
         requestAnimationFrame(gameLoop);
         return;
