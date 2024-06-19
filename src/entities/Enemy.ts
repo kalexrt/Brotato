@@ -1,6 +1,10 @@
-import { ctx } from "../constants";
+import { ctx,enemyImagePath } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
+import { Cross } from "./Cross";
 
+export const crosses:Cross[] = [];
+
+export const enemyArray:Enemy[] = [];
 export class Enemy {
     image: HTMLImageElement;
     x: number;
@@ -50,4 +54,12 @@ export class Enemy {
         this.move(playerX, playerY);
         this.draw(ctx);
     }
+}
+
+export function generateEnemy(x:number,y:number){
+    crosses.push({ x, y, expireTime: Date.now() + 1000 });
+    setTimeout(() => {
+        const enemy = new Enemy(enemyImagePath, x, y)
+        enemyArray.push(enemy)
+      }, 1000);
 }
