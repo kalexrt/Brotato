@@ -45,6 +45,7 @@ export class Player {
         if (keys['s'] || keys['ArrowDown']) { this.y += this.speed; moved = true; } // Move down
         if (keys['d'] || keys['ArrowRight']) { this.x += this.speed; moved = true; } // Move right
 
+
         // Boundary checks
         this.x = Math.max(0, Math.min(canvas.width - this.height, this.x));
         this.y = Math.max(0, Math.min(canvas.height - this.height, this.y));

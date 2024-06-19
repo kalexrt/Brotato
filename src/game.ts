@@ -12,10 +12,24 @@ background.src = bgimg;
 const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
 const enemy1 = new Enemy('/enemies/melee.png', 0,0);
 let lastFrame = 0;
+let pauseSet = new Set ()
+
 export function gameLoop(timestamp:number) {
+    // if (keys['p'] || keys['P']) {
+    //     console.log('pause')
+    //     if(pauseSet.has('p')) pauseSet.delete('p');
+    //     else pauseSet.add('p');
+    // }
+
+    if (pauseSet.has('p')) {
+        lastFrame = timestamp;
+        requestAnimationFrame(gameLoop);
+        return;
+    }
 
     const deltaTime = timestamp - lastFrame;
     lastFrame = timestamp;
+    
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background,0,0,canvas.width,canvas.height);
@@ -30,5 +44,17 @@ export function gameLoop(timestamp:number) {
         player.hitEffect(timestamp);
     }
 
+
     requestAnimationFrame(gameLoop);
 }
+
+
+window.addEventListener('keydown', (e) => {
+    if (e.code === 'KeyP') {
+        if (pauseSet.has('p')) {
+            pauseSet.delete('p');
+        } else {
+            pauseSet.add('p');
+        }
+    }
+});
