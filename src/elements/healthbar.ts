@@ -16,9 +16,10 @@ export function drawHealthBar(ctx: CanvasRenderingContext2D, currHealth: number,
     // Draw the current health bar
     ctx.fillStyle = 'red';
     ctx.fillRect(x - offsetX, y - offsetY, currHealthWidth, barHeight);
-
     // Draw the health text
     ctx.fillStyle = 'white';
     ctx.font = '16px "Anybody"';
-    ctx.fillText(`HP: ${Math.max(0,currHealth)} / ${maxHealth}`, x+10 - offsetX , y+16 - offsetY );
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(`HP : ${Math.max(0,currHealth)} / ${maxHealth}`, x + 45 - offsetX , y + 12 - offsetY );
 }

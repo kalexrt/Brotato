@@ -1,8 +1,10 @@
-import { SCREEN, ctx, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY } from "../constants";
+import { SCREEN, ctx, hitEffect, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, weaponOffset } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
+import Point from "../shape/Point";
 
 export var offsetX = 0;
 export var offsetY = 0;
+
 export class Player {
     image: HTMLImageElement;
     x: number;
@@ -17,6 +19,7 @@ export class Player {
     lastAnimationFrame:number;
     hitImg:HTMLImageElement;
     isFlipped:boolean;
+    weaponPositions: Point[]
 
     constructor(imageSrc: string, x: number, y: number,health:number = 10, height:number = 40, speed: number = 4) {
         this.image = new Image();
@@ -31,11 +34,17 @@ export class Player {
         this.moveAudio.loop = true; //for continuosly playing walk sound
         this.moveAudio.volume = 0.2;    //for low volume while walking
         this.currentFrame = 0;
-        this.numOfFrames = 3;
+        this.numOfFrames = 4;  //this is 4 because hitEffect.active resets it before 4th framse is called
         this.lastAnimationFrame = 0;
         this.hitImg = new Image();
         this.hitImg.src ='/hit_effect/hit-effect.png'
         this.isFlipped = false;
+        this.weaponPositions = [
+            new Point(this.x - weaponOffset + this.height, this.y + this.height - weaponOffset), //bottom right
+            new Point(this.x - weaponOffset, this.y + this.height - weaponOffset), //bottom left
+            new Point(this.x - weaponOffset + this.height, this.y - weaponOffset), //top right
+            new Point(this.x - weaponOffset, this.y - weaponOffset) //top left
+        ];
     
         // Ensure the image is loaded before drawing
         this.image.onload = () => {
@@ -45,7 +54,6 @@ export class Player {
 
     move(keys: { [key: string]: boolean }) {
         let moved = false;
-        console.log(offsetX,offsetY);
         // Move up
         if (keys['w'] || keys['ArrowUp']) { 
             this.y -= this.speed;
@@ -90,6 +98,8 @@ export class Player {
         this.x = Math.max(0, Math.min(SCREEN.width - this.height, this.x));
         this.y = Math.max(0, Math.min(SCREEN.height - this.height, this.y));
 
+        this.updateWeaponPosition();
+
         if (moved) {
             if (this.moveAudio.paused) {
                 this.moveAudio.play();
@@ -121,12 +131,26 @@ export class Player {
             this.lastAnimationFrame = timestamp;
         }
         const animationDeltaTime = timestamp - this.lastAnimationFrame;
-        if (animationDeltaTime > 200){
+        if (animationDeltaTime > 150){
             this.currentFrame = (this.currentFrame + 1) % this.numOfFrames;
             this.lastAnimationFrame = timestamp
+        }
+
+        if (hitEffect.active && this.currentFrame === this.numOfFrames - 1) {
+            hitEffect.active = false;
+            this.currentFrame = 0; // Reset the frame for the next hit effect
         }
     }
     drawHitEffect(){
         ctx.drawImage(this.hitImg,256*this.currentFrame,0,256,256,this.x - 40,this.y - 40,this.height*3,this.height*3);
-    }    
+    } 
+
+    updateWeaponPosition(){
+        this.weaponPositions = [
+            new Point(this.x - weaponOffset + this.height, this.y + this.height - weaponOffset), //bottom right
+            new Point(this.x - weaponOffset, this.y + this.height - weaponOffset), //bottom left
+            new Point(this.x - weaponOffset + this.height, this.y - weaponOffset), //top right
+            new Point(this.x - weaponOffset, this.y - weaponOffset) //top left
+        ];
+    }   
 }
