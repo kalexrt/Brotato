@@ -1,6 +1,7 @@
 import { ctx } from "../constants";
 import Point from "../shape/Point";
 import { drawFlippedImage } from "../utils/ImgFlip";
+import { Projectile, projectileArray } from "./Projectile";
 
 
 export class BaseWeapon {
@@ -18,6 +19,8 @@ export class BaseWeapon {
     targetEnemy: any;
     x:number;
     y:number;
+    angle:number;
+    lastFireTime: number;
 
     constructor(image: HTMLImageElement, name: string, damage: number, fireRate: number, range: number,weaponPositions: Point[]) {
         this.image = image;
@@ -31,6 +34,8 @@ export class BaseWeapon {
         this.targetEnemy = null;
         this.x = weaponPositions[this.position].x;
         this.y = weaponPositions[this.position].y;
+        this.angle = 0;
+        this.lastFireTime = 0;
 
         // Increment and wrap around the position index
         BaseWeapon.currentPosition = (BaseWeapon.currentPosition + 1) % BaseWeapon.maxPositions;
@@ -43,19 +48,20 @@ export class BaseWeapon {
             const enemyCenterY = this.targetEnemy.y + this.targetEnemy.height / 2;
             const dx = enemyCenterX - weaponCenterX;
             const dy = enemyCenterY - weaponCenterY;
-            const angle = Math.atan2(dy, dx);
+            this.angle = Math.atan2(dy, dx);
+            
             ctx.save()
             ctx.translate(weaponCenterX, weaponCenterY);
-            if(angle > -1.5708 && angle < 1.5708){
-                ctx.rotate(angle);
+            if(this.angle > -1.5708 && this.angle < 1.5708){  //between -90 and 90 degrees i.e. left side
+                ctx.rotate(this.angle);
                 ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
-            }else{
+            }else{ //right side
                 ctx.scale(-1, 1);
-                ctx.rotate(-angle + Math.PI);
+                ctx.rotate(-this.angle + Math.PI); //-angle to adjust for flipping of image and adding pi for same reason
                 ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
             }
             ctx.restore();
-        }else{
+        }else{ //if there is no enemy in range
             if(facingLeft) drawFlippedImage(ctx,this.image,this.x,this.y,this.width,this.height);
             else ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
@@ -70,11 +76,11 @@ export class BaseWeapon {
         let closestEnemy = null;
         let closestDistance = this.range;
 
-        for (let enemy of enemies) {
+        for (let enemy of enemies) { //loop through enemy array 
             const distance = Math.sqrt((enemy.x - this.x) ** 2 + (enemy.y - this.y) ** 2);
             if (distance < closestDistance) {
                 closestDistance = distance;
-                closestEnemy = enemy;
+                closestEnemy = enemy; //set target enemy to closest enemy
             }
         }
         if (closestEnemy) {
@@ -82,6 +88,14 @@ export class BaseWeapon {
         } else {
             this.targetEnemy = null;
 
+        }
+    }
+
+    fireWeapon(currentTime: number) {
+        console.log('fired');
+        if (this.targetEnemy && currentTime - this.lastFireTime >= this.fireRate) {
+            projectileArray.push(new Projectile(this.x+this.width,this.y+this.height/2,this.angle,this.damage))
+            this.lastFireTime = currentTime;
         }
     }
 }

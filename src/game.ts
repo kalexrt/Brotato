@@ -8,21 +8,22 @@ import { drawHealthBar } from './elements/healthbar';
 import { drawPaused } from './elements/pause';
 import { getRandomInt } from './utils/common';
 import { addRemoveCross } from './elements/spawneffect';
-import { SmallWeapon } from './entities/SmallWeapon';
-import { BigWeapon } from './entities/BigWeapon';
-import { BaseWeapon } from './entities/BaseWeapon';
+import { SmallWeapon } from './weapons/SmallWeapon';
+import { BigWeapon } from './weapons/BigWeapon';
+import { BaseWeapon } from './weapons/BaseWeapon';
+import { projectileArray } from './weapons/Projectile';
 
 const background =  new Image();
 background.src = bgimg;
 const weaponArray: BaseWeapon[] = [];
 
-let enemySpawnTimer = 30000; // Accumulator for enemy spawn timing
+let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 
 const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
 
-let weapon1 = new SmallWeapon(pistolImg,'pistol',10,10,100,player.weaponPositions);
-let weapon2 = new SmallWeapon(smgImg,'smg',10,10,200,player.weaponPositions);
-let weapon3 = new BigWeapon(minigunImg,'minigun',10,10,300,player.weaponPositions);
+let weapon1 = new SmallWeapon(pistolImg,'pistol',10,1000,150,player.weaponPositions);
+let weapon2 = new SmallWeapon(smgImg,'smg',10,500,200,player.weaponPositions);
+let weapon3 = new BigWeapon(minigunImg,'minigun',10,200,300,player.weaponPositions);
 weaponArray.push(weapon1);
 weaponArray.push(weapon2);
 weaponArray.push(weapon3);
@@ -46,7 +47,7 @@ export function gameLoop(timestamp:number) {
     invulnerability += deltaTime;
 
     // span enemy every 3 seconds
-    if (enemySpawnTimer >= 30000) {
+    if (enemySpawnTimer >= 3000) {
         generateEnemy( getRandomInt(0,canvas.width), getRandomInt(0,canvas.height));
         enemySpawnTimer = 0; // Reset the timer
     }
@@ -61,6 +62,7 @@ export function gameLoop(timestamp:number) {
     weaponArray.forEach(weapon =>{
         weapon.updateWeapon(player.weaponPositions);
         weapon.findClosestEnemy(enemyArray);
+        weapon.fireWeapon(timestamp);
         weapon.drawWeapon(player.isFlipped);
     })
     
@@ -74,6 +76,13 @@ export function gameLoop(timestamp:number) {
             
         }
     });
+
+
+    projectileArray.forEach(projectile => {
+        projectile.update();
+        projectile.draw(ctx);
+    })
+    
     if(hitEffect.active){
         player.drawHitEffect();
         player.hitEffect(timestamp);

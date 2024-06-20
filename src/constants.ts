@@ -6,7 +6,9 @@ export const weaponWidth = 32;
 export const weaponHeight = 20;
 export const bigWeaponWidth = 50;
 export const bigWeaponHeight = 30;
-
+export const bulletWidth = 40;
+export const bulletHeight = 15;
+export const bulletSpeed = 20;
 interface Screen {
     width: number;
     height: number;
@@ -41,3 +43,6 @@ smgImg.src = '/weapons/smg.png'
 
 export const minigunImg = new Image();
 minigunImg.src = '/weapons/minigun.png'
+
+export const bulletImg = new Image();
+bulletImg.src = '/projectile/bullet.png'
