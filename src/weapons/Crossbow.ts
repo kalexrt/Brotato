@@ -1,15 +1,15 @@
-import { bulletImg, shotgunImg, shotgunSound } from "../constants";
+import { crossbowImg, crossbowSound } from "../constants";
 import Point from "../shape/Point";
 import { MediumWeapon } from "./MediumWeapon";
 
-export class Shotgun extends MediumWeapon{
+export class Crossbow extends MediumWeapon{
     constructor(weaponPositions: Point[]) {
         super(weaponPositions);
-        this.image = shotgunImg;
-        this.sound = shotgunSound;
+        this.image = crossbowImg;
+        this.sound = crossbowSound;
         this.damage = this.tier * 30;
         this.fireRate = 1500 - this.tier*50;
-        this.range = 200;
-        this.projectile = bulletImg;
+        this.range = 400;
+        this.projectile = crossbowImg;
     }
 }

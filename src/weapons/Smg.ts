@@ -1,6 +1,6 @@
 import { SmallWeapon } from "./SmallWeapon";
 import Point from "../shape/Point";
-import { smgImg, smgSound } from "../constants";
+import { bulletImg, smgImg, smgSound } from "../constants";
 
 export class Smg extends SmallWeapon{
     constructor(weaponPositions: Point[]) {
@@ -10,5 +10,6 @@ export class Smg extends SmallWeapon{
         this.damage = this.tier * 7;
         this.fireRate = 300 - this.tier*20;
         this.range = 300;
+        this.projectile = bulletImg;
     }
 }

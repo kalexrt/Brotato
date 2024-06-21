@@ -1,4 +1,4 @@
-import { minigunImg, minigunSound } from "../constants";
+import { bulletImg, minigunImg, minigunSound } from "../constants";
 import Point from "../shape/Point";
 import { BigWeapon } from "./BigWeapon";
 
@@ -10,5 +10,6 @@ export class Minigun extends BigWeapon{
         this.damage = this.tier * 10;
         this.fireRate = 300 - this.tier * 50;
         this.range = 300;
+        this.projectile = bulletImg;
     }
 }

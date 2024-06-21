@@ -23,6 +23,7 @@ export class BaseWeapon {
     lastFireTime: number;
     sound: HTMLAudioElement;
     tier:number;
+    projectile:HTMLImageElement;
 
     constructor(weaponPositions: Point[]) {
         this.image = defaultImg;
@@ -39,6 +40,7 @@ export class BaseWeapon {
         this.lastFireTime = 0;
         this.sound = defaultAudio;
         this.tier = 1;
+        this.projectile = defaultImg;
 
         // increase and wrap around the position index
         BaseWeapon.currentPosition = (BaseWeapon.currentPosition + 1) % BaseWeapon.maxPositions;
@@ -98,7 +100,7 @@ export class BaseWeapon {
         if (this.targetEnemy && currentTime - this.lastFireTime >= this.fireRate) {
             this.sound.currentTime = 0;
             this.sound.play();
-            projectileArray.push(new Projectile(this.x+this.width,this.y+this.height/2,this.angle,this.damage,this.range))
+            projectileArray.push(new Projectile(this.projectile,this.x+this.width,this.y+this.height/2,this.angle,this.damage,this.range))
             this.lastFireTime = currentTime;
         }
     }

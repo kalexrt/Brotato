@@ -55,6 +55,9 @@ minigunImg.src = '/weapons/minigun.png'
 export const shotgunImg = new Image();
 shotgunImg.src = '/weapons/shotgun.png'
 
+export const crossbowImg = new Image();
+crossbowImg.src = '/weapons/crossbow.png'
+
 export const bulletImg = new Image();
 bulletImg.src = '/projectile/bullet.png'
 
@@ -72,6 +75,9 @@ walkSound.src = '/character/audio/walk.mp3'
 
 export const shotgunSound = new Audio();
 shotgunSound.src = '/weapons/audio/shotgun.mp3'
+
+export const crossbowSound = new Audio();
+crossbowSound.src = '/weapons/audio/crossbow.mp3'
 
 const material1 = new Image();
 const material2 = new Image();

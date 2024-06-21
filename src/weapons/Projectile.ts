@@ -1,4 +1,4 @@
-import { bulletHeight, bulletImg, bulletSpeed, bulletWidth } from "../constants";
+import { bulletHeight, bulletSpeed, bulletWidth } from "../constants";
 
 export class Projectile {
     image:HTMLImageElement;
@@ -13,8 +13,8 @@ export class Projectile {
     damage: number;
     range:number;
 
-    constructor(x: number, y: number, direction: number, damage: number,range: number) {
-        this.image = bulletImg;
+    constructor(image:HTMLImageElement ,x: number, y: number, direction: number, damage: number,range: number) {
+        this.image = image;
         this.width = bulletWidth;
         this.height = bulletHeight;
         this.startX = x; //keep track of bullet start to remove it when out of range
@@ -40,7 +40,7 @@ export class Projectile {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.direction);
-        ctx.drawImage(bulletImg,-this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.drawImage(this.image,-this.width / 2, -this.height / 2, this.width, this.height);
         ctx.restore();
     }
 }
