@@ -1,4 +1,4 @@
-import { ctx, pistolSound } from "../constants";
+import { ctx, defaultAudio, defaultImg, pistolSound } from "../constants";
 import Point from "../shape/Point";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import { Projectile } from "./Projectile";
@@ -10,7 +10,6 @@ export class BaseWeapon {
     static maxPositions: number = 4;
 
     image: HTMLImageElement;
-    name: string;
     damage: number;
     fireRate: number;
     range: number;
@@ -22,13 +21,14 @@ export class BaseWeapon {
     y:number;
     angle:number;
     lastFireTime: number;
+    sound: HTMLAudioElement;
+    tier:number;
 
-    constructor(image: HTMLImageElement, name: string, damage: number, fireRate: number, range: number,weaponPositions: Point[]) {
-        this.image = image;
-        this.name = name;
-        this.damage = damage;
-        this.fireRate = fireRate;
-        this.range = range;
+    constructor(weaponPositions: Point[]) {
+        this.image = defaultImg;
+        this.damage = 0;
+        this.fireRate = 0;
+        this.range = 0;
         this.position = BaseWeapon.currentPosition;
         this.height = 0;
         this.width = 0;
@@ -37,6 +37,8 @@ export class BaseWeapon {
         this.y = weaponPositions[this.position].y;
         this.angle = 0;
         this.lastFireTime = 0;
+        this.sound = defaultAudio;
+        this.tier = 1;
 
         // increase and wrap around the position index
         BaseWeapon.currentPosition = (BaseWeapon.currentPosition + 1) % BaseWeapon.maxPositions;
@@ -94,8 +96,8 @@ export class BaseWeapon {
 
     fireWeapon(currentTime: number) {
         if (this.targetEnemy && currentTime - this.lastFireTime >= this.fireRate) {
-            pistolSound.currentTime = 0.3;
-            pistolSound.play();
+            this.sound.currentTime = 0;
+            this.sound.play();
             projectileArray.push(new Projectile(this.x+this.width,this.y+this.height/2,this.angle,this.damage,this.range))
             this.lastFireTime = currentTime;
         }

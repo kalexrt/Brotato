@@ -4,6 +4,8 @@ export const CANVAS_WIDTH = 1000;
 export const CANVAS_HEIGHT = 563;
 export const weaponWidth = 32;
 export const weaponHeight = 20;
+export const midWeaponWidth = 45;
+export const midWeaponHeight = 18;
 export const bigWeaponWidth = 50;
 export const bigWeaponHeight = 30;
 export const bulletWidth = 40;
@@ -44,14 +46,26 @@ smgImg.src = '/weapons/smg.png'
 export const minigunImg = new Image();
 minigunImg.src = '/weapons/minigun.png'
 
+export const shotgunImg = new Image();
+shotgunImg.src = '/weapons/shotgun.png'
+
 export const bulletImg = new Image();
 bulletImg.src = '/projectile/bullet.png'
 
 export const pistolSound = new Audio();
-pistolSound.src = '/projectile/audio/gun.mp3'
+pistolSound.src = '/weapons/audio/pistol.mp3'
+
+export const smgSound = new Audio();
+smgSound.src = '/weapons/audio/smg.mp3'
+
+export const minigunSound = new Audio();
+minigunSound.src = '/weapons/audio/minigun.mp3'
 
 export const walkSound = new Audio();
 walkSound.src = '/character/audio/walk.mp3'
+
+export const shotgunSound = new Audio();
+shotgunSound.src = '/weapons/audio/shotgun.mp3'
 
 const material1 = new Image();
 const material2 = new Image();
@@ -68,3 +82,6 @@ export const materialChoices = [material1,material2,material3]
 
 export const materialWidth = 20;
 export const materialHeight = 20;
+
+export const defaultImg = new Image();
+export const defaultAudio =  new Audio();

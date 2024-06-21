@@ -3,18 +3,20 @@ import bgimg from '/background/large_map_image.png'
 import { Player, offsetX, offsetY } from './entities/Player';
 import { keys } from './elements/input';
 import { enemyArray,generateEnemy } from './entities/Enemy';
-import { SCREEN, canvas,ctx, hitEffect, materialPickup, minigunImg, pistolImg, smgImg } from './constants';
+import { SCREEN, canvas,ctx, hitEffect, materialPickup } from './constants';
 import { isColliding } from './utils/collision';
 import { drawHealthBar } from './elements/healthbar';
 import { drawPaused } from './elements/pause';
 import { getRandomInt } from './utils/common';
 import { addRemoveCross } from './elements/spawneffect';
-import { SmallWeapon } from './weapons/SmallWeapon';
-import { BigWeapon } from './weapons/BigWeapon';
 import { BaseWeapon } from './weapons/BaseWeapon';
 import { Projectile } from './weapons/Projectile';
 import { addToDamageTextArray, updateDrawDamageText } from './ui/enemydamagetext';
 import { materialArray } from './entities/Material';
+import { Pistol } from './weapons/Pistol';
+import { Smg } from './weapons/Smg';
+import { Minigun } from './weapons/Minigun';
+import { Shotgun } from './weapons/Shotgun';
 
 export let projectileArray: Projectile[] = [];
 const background =  new Image();
@@ -25,12 +27,15 @@ let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 
 const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
 
-let weapon1 = new SmallWeapon(pistolImg,'pistol',10,1000,150,player.weaponPositions);
-let weapon2 = new SmallWeapon(smgImg,'smg',10,500,200,player.weaponPositions);
-let weapon3 = new BigWeapon(minigunImg,'minigun',10,200,300,player.weaponPositions);
+let weapon1 = new Pistol(player.weaponPositions);
+let weapon2 = new Smg(player.weaponPositions);
+let weapon3 = new Minigun(player.weaponPositions);
+let weapon4 = new Shotgun(player.weaponPositions);
+
 weaponArray.push(weapon1);
 weaponArray.push(weapon2);
 weaponArray.push(weapon3);
+weaponArray.push(weapon4);
 
 let invulnerability = 0; // invulnerability timer accumulator
 let lastFrame = 0;
@@ -52,7 +57,7 @@ export function gameLoop(timestamp:number) {
     invulnerability += deltaTime;
 
     // spawn enemy every 3 seconds
-    if (enemySpawnTimer >= 3000) {
+    if (enemySpawnTimer >= 200) {
         generateEnemy( getRandomInt(0,canvas.width), getRandomInt(0,canvas.height));
         enemySpawnTimer = 0; // Reset the timer
     }

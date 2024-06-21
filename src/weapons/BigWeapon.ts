@@ -3,8 +3,8 @@ import { BaseWeapon } from "./BaseWeapon";
 import Point from "../shape/Point";
 
 export class BigWeapon extends BaseWeapon {
-    constructor(image: HTMLImageElement, name: string, damage: number, fireRate: number, range: number,weaponPositions: Point[]) {
-        super(image, name, damage, fireRate, range, weaponPositions);
+    constructor(weaponPositions: Point[]) {
+        super(weaponPositions);
         this.height =  bigWeaponHeight;
         this.width = bigWeaponWidth;
     }
