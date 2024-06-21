@@ -1,10 +1,8 @@
-import bgimg from '/background/large_map_image.png'
-// import bgimg from '/background/mapwithedges.png'
 import { global } from './global';
 import { Player, offsetX, offsetY } from './entities/Player';
 import { keys } from './elements/input';
 import { enemyArray,generateEnemy } from './entities/Enemy';
-import { SCREEN, canvas,ctx, hitEffect, materialPickup } from './constants';
+import { SCREEN, canvas,ctx, hitEffect, materialPickup, background } from './constants';
 import { isColliding } from './utils/collision';
 import { drawHealthBar } from './elements/healthbar';
 import { drawPaused } from './elements/pause';
@@ -22,8 +20,7 @@ import { updateDrawExpBar } from './ui/expbar';
 import { Crossbow } from './weapons/Crossbow';
 
 export let projectileArray: Projectile[] = [];
-const background =  new Image();
-background.src = bgimg;
+
 const weaponArray: BaseWeapon[] = [];
 
 let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing

@@ -38,6 +38,9 @@ export const hitEffect ={
     active : false
 };
 
+export const background =  new Image();
+background.src = '/background/large_map_image.png';
+//'/background/mapwithedges.png' alternate
 
 export const enemyImagePath = '/enemies/melee.png';
 export const crossImage = new Image();
@@ -78,6 +81,9 @@ shotgunSound.src = '/weapons/audio/shotgun.mp3'
 
 export const crossbowSound = new Audio();
 crossbowSound.src = '/weapons/audio/crossbow.mp3'
+
+export const backgroundMusic = new Audio('/background/audio/bgmusic.mp3');
+backgroundMusic.loop = true;
 
 const material1 = new Image();
 const material2 = new Image();
