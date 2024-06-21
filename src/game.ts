@@ -1,8 +1,9 @@
 import bgimg from '/background/large_map_image.png'
+// import bgimg from '/background/mapwithedges.png'
 import { Player, offsetX, offsetY } from './entities/Player';
 import { keys } from './elements/input';
 import { enemyArray,generateEnemy } from './entities/Enemy';
-import { SCREEN, canvas,ctx, hitEffect, minigunImg, pistolImg, smgImg } from './constants';
+import { SCREEN, canvas,ctx, hitEffect, materialPickup, minigunImg, pistolImg, smgImg } from './constants';
 import { isColliding } from './utils/collision';
 import { drawHealthBar } from './elements/healthbar';
 import { drawPaused } from './elements/pause';
@@ -11,8 +12,11 @@ import { addRemoveCross } from './elements/spawneffect';
 import { SmallWeapon } from './weapons/SmallWeapon';
 import { BigWeapon } from './weapons/BigWeapon';
 import { BaseWeapon } from './weapons/BaseWeapon';
-import { projectileArray } from './weapons/Projectile';
+import { Projectile } from './weapons/Projectile';
+import { addToDamageTextArray, updateDrawDamageText } from './ui/enemydamagetext';
+import { materialArray } from './entities/Material';
 
+export let projectileArray: Projectile[] = [];
 const background =  new Image();
 background.src = bgimg;
 const weaponArray: BaseWeapon[] = [];
@@ -28,7 +32,7 @@ weaponArray.push(weapon1);
 weaponArray.push(weapon2);
 weaponArray.push(weapon3);
 
-let invulnerability = 0;
+let invulnerability = 0; // invulnerability timer accumulator
 let lastFrame = 0;
 let pauseSet = new Set ()
 
@@ -40,13 +44,14 @@ export function gameLoop(timestamp:number) {
         return;
     }
 
-    const deltaTime = timestamp - lastFrame;
+    const deltaTime = timestamp - lastFrame; //calculate time difference between last frame and current frame
     lastFrame = timestamp;
-
+    
+    //count invulnerability and enemyspawn time
     enemySpawnTimer += deltaTime;
     invulnerability += deltaTime;
 
-    // span enemy every 3 seconds
+    // spawn enemy every 3 seconds
     if (enemySpawnTimer >= 3000) {
         generateEnemy( getRandomInt(0,canvas.width), getRandomInt(0,canvas.height));
         enemySpawnTimer = 0; // Reset the timer
@@ -55,10 +60,23 @@ export function gameLoop(timestamp:number) {
     ctx.clearRect(-offsetX, -offsetY, canvas.width, canvas.height);
     ctx.drawImage(background,0,0,SCREEN.width,SCREEN.height);
     
+    //draw the cross that appears before enemy spawn or remove if it's expired
     addRemoveCross(timestamp);
 
+    //render materials
+    for (let index = materialArray.length - 1; index >= 0; index--) {
+        let material = materialArray[index];
+        material.draw();
+        if (isColliding(material, player)) {
+            materialPickup.play();
+            materialArray.splice(index, 1);
+        }
+    }
+
+    //move and update player
     player.update(keys, ctx);
-    
+
+    //weapon operations
     weaponArray.forEach(weapon =>{
         weapon.updateWeapon(player.weaponPositions);
         weapon.findClosestEnemy(enemyArray);
@@ -66,27 +84,41 @@ export function gameLoop(timestamp:number) {
         weapon.drawWeapon(player.isFlipped);
     })
     
-   
+   //enemy array operations
     enemyArray.forEach(enemy => {
         enemy.update(player.x, player.y, ctx);
         if(isColliding(enemy,player) && invulnerability > 400){
             invulnerability = 0;
             hitEffect.active = true;
             player.currHealth--;
-            
         }
+        //checkprojectile and enemy collision
+        projectileArray.forEach(projectile =>{
+            if(isColliding(enemy,projectile)){
+                addToDamageTextArray(enemy.x + enemy.width/2, enemy.y + enemy.height/2, projectile.damage, timestamp)
+                enemy.health -= projectile.damage;
+            }
+        })
     });
 
+    //draw the damage text
+    updateDrawDamageText(timestamp);
 
+    //projectile operations
     projectileArray.forEach(projectile => {
         projectile.update();
         projectile.draw(ctx);
     })
-    
+
+    //remove elements that are out of weapon's range
+    projectileArray = projectileArray.filter(projectile => !projectile.isOutOfRange());
+
+    //check hit effect 
     if(hitEffect.active){
         player.drawHitEffect();
         player.hitEffect(timestamp);
     }
+    //for health bar
     drawHealthBar(ctx,player.currHealth,player.maxHealth);
     requestAnimationFrame(gameLoop);
 }

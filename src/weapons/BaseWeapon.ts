@@ -1,7 +1,8 @@
-import { ctx } from "../constants";
+import { ctx, pistolSound } from "../constants";
 import Point from "../shape/Point";
 import { drawFlippedImage } from "../utils/ImgFlip";
-import { Projectile, projectileArray } from "./Projectile";
+import { Projectile } from "./Projectile";
+import { projectileArray } from "../game";
 
 
 export class BaseWeapon {
@@ -37,7 +38,7 @@ export class BaseWeapon {
         this.angle = 0;
         this.lastFireTime = 0;
 
-        // Increment and wrap around the position index
+        // increase and wrap around the position index
         BaseWeapon.currentPosition = (BaseWeapon.currentPosition + 1) % BaseWeapon.maxPositions;
     }
     drawWeapon(facingLeft:boolean) {
@@ -92,9 +93,10 @@ export class BaseWeapon {
     }
 
     fireWeapon(currentTime: number) {
-        console.log('fired');
         if (this.targetEnemy && currentTime - this.lastFireTime >= this.fireRate) {
-            projectileArray.push(new Projectile(this.x+this.width,this.y+this.height/2,this.angle,this.damage))
+            pistolSound.currentTime = 0.3;
+            pistolSound.play();
+            projectileArray.push(new Projectile(this.x+this.width,this.y+this.height/2,this.angle,this.damage,this.range))
             this.lastFireTime = currentTime;
         }
     }

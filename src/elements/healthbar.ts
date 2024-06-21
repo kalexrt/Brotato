@@ -6,17 +6,17 @@ export function drawHealthBar(ctx: CanvasRenderingContext2D, currHealth: number,
     const x = 20;
     const y = 36;
 
-    // Calculate the width of the current health
+    // calculate the width of the current health
     const currHealthWidth = Math.max(0, (currHealth / maxHealth) * barWidth);
 
-    // Draw the background bar (max health)
+    // draw the background bar (max health)
     ctx.fillStyle = 'grey';
     ctx.fillRect(x - offsetX, y - offsetY, barWidth, barHeight);
 
-    // Draw the current health bar
+    // draw the current health bar
     ctx.fillStyle = 'red';
     ctx.fillRect(x - offsetX, y - offsetY, currHealthWidth, barHeight);
-    // Draw the health text
+    // draw the health text
     ctx.fillStyle = 'white';
     ctx.font = '16px "Anybody"';
     ctx.textAlign = 'center';

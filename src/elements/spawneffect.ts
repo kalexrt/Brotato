@@ -17,7 +17,7 @@ export function addRemoveCross(timestamp:number){
             animateCross(timestamp);
             drawCross(ctx, 80*currentFrame , cross.x, cross.y);
         } else {
-            // Remove the cross if it has expired
+            // remove the cross if it has expired
             crosses.splice(i, 1);
         }
     }

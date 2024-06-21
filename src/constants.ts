@@ -46,3 +46,25 @@ minigunImg.src = '/weapons/minigun.png'
 
 export const bulletImg = new Image();
 bulletImg.src = '/projectile/bullet.png'
+
+export const pistolSound = new Audio();
+pistolSound.src = '/projectile/audio/gun.mp3'
+
+export const walkSound = new Audio();
+walkSound.src = '/character/audio/walk.mp3'
+
+const material1 = new Image();
+const material2 = new Image();
+const material3 = new Image();
+
+material1.src = '/material/material1.png'
+material2.src = '/material/material2.png'
+material3.src = '/material/material3.png'
+
+export const materialPickup = new Audio();
+materialPickup.src = '/material/audio/material_pickup.mp3'
+
+export const materialChoices = [material1,material2,material3]
+
+export const materialWidth = 20;
+export const materialHeight = 20;

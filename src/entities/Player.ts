@@ -1,4 +1,4 @@
-import { SCREEN, ctx, hitEffect, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, weaponOffset } from "../constants";
+import { SCREEN, ctx, hitEffect, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, walkSound, weaponOffset } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import Point from "../shape/Point";
 
@@ -11,6 +11,7 @@ export class Player {
     y: number;
     currHealth:number;
     maxHealth:number;
+    width: number;
     height:number;
     speed: number;
     moveAudio: HTMLAudioElement;
@@ -28,9 +29,10 @@ export class Player {
         this.y = y;
         this.currHealth = health;
         this.maxHealth = health;
+        this.width = height;
         this.height = height;
         this.speed = speed;
-        this.moveAudio = document.getElementById('char-walk') as HTMLAudioElement;
+        this.moveAudio = walkSound;
         this.moveAudio.loop = true; //for continuosly playing walk sound
         this.moveAudio.volume = 0.2;    //for low volume while walking
         this.currentFrame = 0;
@@ -46,7 +48,7 @@ export class Player {
             new Point(this.x - weaponOffset, this.y - weaponOffset) //top left
         ];
     
-        // Ensure the image is loaded before drawing
+        // ensure the image is loaded before drawing
         this.image.onload = () => {
             this.draw(ctx);
         };
@@ -54,7 +56,7 @@ export class Player {
 
     move(keys: { [key: string]: boolean }) {
         let moved = false;
-        // Move up
+        // move up
         if (keys['w'] || keys['ArrowUp']) { 
             this.y -= this.speed;
             if(offsetY < maxOffsetY){
@@ -63,7 +65,7 @@ export class Player {
             }
             moved = true;
         } 
-        // Move left
+        // move left
         if (keys['a'] || keys['ArrowLeft']) { 
             this.x -= this.speed; 
             if(offsetX < maxOffsetX){
@@ -73,7 +75,7 @@ export class Player {
             moved = true; 
             if (!this.isFlipped) this.isFlipped = true; 
         } 
-        // Move down
+        // move down
         if (keys['s'] || keys['ArrowDown']) { 
             this.y += this.speed; 
             if(offsetY > minOffsetY){
@@ -82,7 +84,7 @@ export class Player {
             }
             moved = true; 
         } 
-        // Move right
+        // move right
         if (keys['d'] || keys['ArrowRight']) { 
             this.x += this.speed; 
             if(offsetX > minOffsetX ){
@@ -94,7 +96,7 @@ export class Player {
         } 
 
 
-        // Boundary checks
+        // boundary checks
         this.x = Math.max(0, Math.min(SCREEN.width - this.height, this.x));
         this.y = Math.max(0, Math.min(SCREEN.height - this.height, this.y));
 
@@ -107,15 +109,15 @@ export class Player {
         } else {
             if (!this.moveAudio.paused) {
                 this.moveAudio.pause();
-                this.moveAudio.currentTime = 0; // Reset audio to the start
+                this.moveAudio.currentTime = 0; // reset audio to the start
             }
         }
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.strokeStyle = 'red'; // Set the color of the rectangle
-        ctx.lineWidth = 2; // Set the width of the rectangle border
-        ctx.strokeRect(this.x, this.y, this.height, this.height); // Draw the rectangle
+        ctx.strokeStyle = 'red'; // set the color of the rectangle
+        ctx.lineWidth = 2; // set the width of the rectangle border
+        ctx.strokeRect(this.x, this.y, this.height, this.height); // draw the rectangle
 
         if(this.isFlipped) drawFlippedImage(ctx,this.image,this.x,this.y,this.height,this.height);
         else ctx.drawImage(this.image, this.x , this.y, this.height,this.height);
@@ -138,7 +140,7 @@ export class Player {
 
         if (hitEffect.active && this.currentFrame === this.numOfFrames - 1) {
             hitEffect.active = false;
-            this.currentFrame = 0; // Reset the frame for the next hit effect
+            this.currentFrame = 0; // reset the frame for the next hit effect
         }
     }
     drawHitEffect(){
