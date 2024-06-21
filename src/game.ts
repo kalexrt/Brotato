@@ -28,15 +28,15 @@ let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
 global.level = player.level;
 let weapon1 = new Pistol(player.weaponPositions);
-// let weapon2 = new Smg(player.weaponPositions);
-// let weapon3 = new Minigun(player.weaponPositions);
-// let weapon4 = new Shotgun(player.weaponPositions);
+let weapon2 = new Smg(player.weaponPositions);
+let weapon3 = new Minigun(player.weaponPositions);
+let weapon4 = new Shotgun(player.weaponPositions);
 let weapon5 = new Crossbow(player.weaponPositions);
 
 weaponArray.push(weapon1);
-// weaponArray.push(weapon2);
-// weaponArray.push(weapon3);
-// weaponArray.push(weapon4);
+weaponArray.push(weapon2);
+weaponArray.push(weapon3);
+weaponArray.push(weapon4);
 weaponArray.push(weapon5);
 
 let invulnerability = 0; // invulnerability timer accumulator
