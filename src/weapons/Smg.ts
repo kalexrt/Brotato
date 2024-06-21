@@ -8,7 +8,7 @@ export class Smg extends SmallWeapon{
         this.image = smgImg;
         this.sound = smgSound;
         this.damage = this.tier * 7;
-        this.fireRate = 500 - this.tier*20;
+        this.fireRate = 300 - this.tier*20;
         this.range = 300;
     }
 }

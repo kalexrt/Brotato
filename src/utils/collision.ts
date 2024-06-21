@@ -2,8 +2,9 @@ import { Player } from "../entities/Player";
 import { Enemy } from "../entities/Enemy";
 import { Projectile } from "../weapons/Projectile";
 import { Material } from "../entities/Material";
+import { PickupRange } from "../interfaces/PickupRange";
 
-export function isColliding(obj1: Enemy | Material, obj2: Player | Projectile): boolean {
+export function isColliding(obj1: Enemy | Material, obj2: Player | Projectile | PickupRange): boolean {
     const obj1Right = obj1.x + obj1.width;
     const obj1Bottom = obj1.y + obj1.height;
     const obj2Right = obj2.x + obj2.width;

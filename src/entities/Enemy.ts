@@ -1,6 +1,6 @@
 import { ctx,enemyImagePath } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
-import { Cross } from "./Cross";
+import { Cross } from "../interfaces/Cross";
 import { Material, materialArray } from "./Material";
 
 export const crosses:Cross[] = [];

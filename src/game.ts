@@ -72,7 +72,7 @@ export function gameLoop(timestamp:number) {
     for (let index = materialArray.length - 1; index >= 0; index--) {
         let material = materialArray[index];
         material.draw();
-        if (isColliding(material, player)) {
+        if (isColliding(material, player.pickupRange)) {
             materialPickup.play();
             materialArray.splice(index, 1);
         }

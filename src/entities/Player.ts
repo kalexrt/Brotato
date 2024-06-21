@@ -1,6 +1,7 @@
-import { SCREEN, ctx, hitEffect, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, walkSound, weaponOffset } from "../constants";
+import { SCREEN, ctx, hitEffect, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import Point from "../shape/Point";
+import { PickupRange } from "../interfaces/PickupRange";
 
 export var offsetX = 0;
 export var offsetY = 0;
@@ -20,6 +21,7 @@ export class Player {
     lastAnimationFrame:number;
     hitImg:HTMLImageElement;
     isFlipped:boolean;
+    pickupRange: PickupRange;
     weaponPositions: Point[]
 
     constructor(imageSrc: string, x: number, y: number,health:number = 10, height:number = 40, speed: number = 4) {
@@ -41,6 +43,12 @@ export class Player {
         this.hitImg = new Image();
         this.hitImg.src ='/hit_effect/hit-effect.png'
         this.isFlipped = false;
+        this.pickupRange ={
+            x: this.x - playerPickupRange/2,
+            y: this.y - playerPickupRange/2,
+            width: playerPickupRange,
+            height: playerPickupRange
+        };
         this.weaponPositions = [
             new Point(this.x - weaponOffset + this.height, this.y + this.height - weaponOffset), //bottom right
             new Point(this.x - weaponOffset, this.y + this.height - weaponOffset), //bottom left
@@ -112,6 +120,14 @@ export class Player {
                 this.moveAudio.currentTime = 0; // reset audio to the start
             }
         }
+        
+        //update pickup range
+        this.pickupRange ={
+            x: this.x - playerPickupRange/2,
+            y: this.y - playerPickupRange/2,
+            width: playerPickupRange,
+            height: playerPickupRange
+        };
     }
 
     draw(ctx: CanvasRenderingContext2D) {

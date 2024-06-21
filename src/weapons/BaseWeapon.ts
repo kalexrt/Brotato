@@ -1,4 +1,4 @@
-import { ctx, defaultAudio, defaultImg, pistolSound } from "../constants";
+import { ctx, defaultAudio, defaultImg } from "../constants";
 import Point from "../shape/Point";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import { Projectile } from "./Projectile";

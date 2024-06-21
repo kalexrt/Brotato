@@ -1,5 +1,6 @@
 export const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 export const ctx = canvas.getContext('2d')!;
+
 export const CANVAS_WIDTH = 1000;
 export const CANVAS_HEIGHT = 563;
 export const weaponWidth = 32;
@@ -11,6 +12,15 @@ export const bigWeaponHeight = 30;
 export const bulletWidth = 40;
 export const bulletHeight = 15;
 export const bulletSpeed = 20;
+export const weaponOffset = 12;
+export const minOffsetX = -450;
+export const maxOffsetX = 200;
+export const minOffsetY = -320;
+export const maxOffsetY = 100;
+export const materialWidth = 20;
+export const materialHeight = 20;
+export const playerPickupRange = 200;
+
 interface Screen {
     width: number;
     height: number;
@@ -28,11 +38,7 @@ export const hitEffect ={
     active : false
 };
 
-export const weaponOffset = 12;
-export const minOffsetX = -450;
-export const maxOffsetX = 200;
-export const minOffsetY = -320;
-export const maxOffsetY = 100;
+
 export const enemyImagePath = '/enemies/melee.png';
 export const crossImage = new Image();
 crossImage.src = '/spawn_effect/crosssprite.png'
@@ -79,9 +85,6 @@ export const materialPickup = new Audio();
 materialPickup.src = '/material/audio/material_pickup.mp3'
 
 export const materialChoices = [material1,material2,material3]
-
-export const materialWidth = 20;
-export const materialHeight = 20;
 
 export const defaultImg = new Image();
 export const defaultAudio =  new Audio();
