@@ -1,5 +1,6 @@
 import bgimg from '/background/large_map_image.png'
 // import bgimg from '/background/mapwithedges.png'
+import { global } from './global';
 import { Player, offsetX, offsetY } from './entities/Player';
 import { keys } from './elements/input';
 import { enemyArray,generateEnemy } from './entities/Enemy';
@@ -17,6 +18,7 @@ import { Pistol } from './weapons/Pistol';
 import { Smg } from './weapons/Smg';
 import { Minigun } from './weapons/Minigun';
 import { Shotgun } from './weapons/Shotgun';
+import { updateDrawExpBar } from './ui/expbar';
 
 export let projectileArray: Projectile[] = [];
 const background =  new Image();
@@ -26,7 +28,7 @@ const weaponArray: BaseWeapon[] = [];
 let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 
 const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
-
+global.level = player.level;
 let weapon1 = new Pistol(player.weaponPositions);
 let weapon2 = new Smg(player.weaponPositions);
 let weapon3 = new Minigun(player.weaponPositions);
@@ -74,6 +76,7 @@ export function gameLoop(timestamp:number) {
         material.draw();
         if (isColliding(material, player.pickupRange)) {
             materialPickup.play();
+            player.currExp += 1;
             materialArray.splice(index, 1);
         }
     }
@@ -125,6 +128,8 @@ export function gameLoop(timestamp:number) {
     }
     //for health bar
     drawHealthBar(ctx,player.currHealth,player.maxHealth);
+    //for exp bar
+    updateDrawExpBar(ctx,player.currExp,player.expNeeded);
     requestAnimationFrame(gameLoop);
 }
 

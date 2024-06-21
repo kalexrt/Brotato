@@ -2,6 +2,7 @@ import { SCREEN, ctx, hitEffect, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY,
 import { drawFlippedImage } from "../utils/ImgFlip";
 import Point from "../shape/Point";
 import { PickupRange } from "../interfaces/PickupRange";
+import { global } from "../global";
 
 export var offsetX = 0;
 export var offsetY = 0;
@@ -10,6 +11,9 @@ export class Player {
     image: HTMLImageElement;
     x: number;
     y: number;
+    level:number;
+    currExp:number;
+    expNeeded:number;
     currHealth:number;
     maxHealth:number;
     width: number;
@@ -29,6 +33,9 @@ export class Player {
         this.image.src = imageSrc;
         this.x = x;
         this.y = y;
+        this.level = 1;
+        this.currExp = 0;
+        this.expNeeded = 10 * (this.level * 1.5);
         this.currHealth = health;
         this.maxHealth = health;
         this.width = height;
@@ -120,7 +127,7 @@ export class Player {
                 this.moveAudio.currentTime = 0; // reset audio to the start
             }
         }
-        
+
         //update pickup range
         this.pickupRange ={
             x: this.x - playerPickupRange/2,
@@ -140,6 +147,9 @@ export class Player {
     }
 
     update(keys: { [key: string]: boolean }, ctx: CanvasRenderingContext2D) {
+        if(this.level != global.level) this.currExp = 0; //reset exp when lvl up
+        this.level = global.level;  //lvl up set level
+        this.expNeeded = 10 * (this.level * 1.5) //update exp needed
         this.move(keys);
         this.draw(ctx);
     }
