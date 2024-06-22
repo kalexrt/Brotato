@@ -1,9 +1,9 @@
 import './style.css'
-import { backgroundMusic } from './constants';
-import { gameLoop } from './game';
+import { startGame } from './startgame';
 
 
 window.onload = () => {
-    backgroundMusic.play();
-    requestAnimationFrame(gameLoop)
+    // backgroundMusic.play();
+    // requestAnimationFrame(gameLoop)
+    startGame();
 }

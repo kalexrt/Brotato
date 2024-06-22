@@ -82,7 +82,7 @@ shotgunSound.src = '/weapons/audio/shotgun.mp3'
 export const crossbowSound = new Audio();
 crossbowSound.src = '/weapons/audio/crossbow.mp3'
 
-export const backgroundMusic = new Audio('/background/audio/bgmusic.mp3');
+export const backgroundMusic = new Audio('/background/audio/compressedmusic.mp3');
 backgroundMusic.loop = true;
 
 const material1 = new Image();
@@ -95,6 +95,9 @@ material3.src = '/material/material3.png'
 
 export const materialPickup = new Audio();
 materialPickup.src = '/material/audio/material_pickup.mp3'
+
+export const levelupSound = new Audio();
+levelupSound.src = '/character/audio/levelup.mp3'
 
 export const materialChoices = [material1,material2,material3]
 

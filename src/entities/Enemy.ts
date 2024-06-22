@@ -2,6 +2,7 @@ import { ctx,enemyImagePath } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import { Cross } from "../interfaces/Cross";
 import { Material, materialArray } from "./Material";
+import { global } from "../global";
 
 export const crosses:Cross[] = [];
 
@@ -75,6 +76,7 @@ export class Enemy {
 export function generateEnemy(x:number,y:number){
     crosses.push({ x, y, expireTime: Date.now() + 1000 });
     setTimeout(() => {
+        if (global.gameOver) return;
         const enemy = new Enemy(enemyImagePath, x, y)
         enemyArray.push(enemy)
       }, 1000);

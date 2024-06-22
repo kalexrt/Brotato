@@ -1,3 +1,4 @@
+import { levelupSound } from "../constants";
 import { offsetX, offsetY } from "../entities/Player";
 import { global } from "../global";
 
@@ -22,11 +23,12 @@ function drawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: n
     ctx.font = '16px "Anybody"';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(`Exp : ${Math.max(0,currExp)} / ${expNeeded}`, x + 45 - offsetX , y + 12 - offsetY );
+    ctx.fillText(` Level ${global.level} :   ${currExp} / ${expNeeded}`, x + 55 - offsetX , y + 12 - offsetY );
 }
 
 export function updateDrawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: number){
     if(currExp >= expNeeded){
+        levelupSound.play();
         global.level += 1;
     }
     drawExpBar(ctx, currExp, expNeeded);

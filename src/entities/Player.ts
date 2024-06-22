@@ -147,6 +147,7 @@ export class Player {
     }
 
     update(keys: { [key: string]: boolean }, ctx: CanvasRenderingContext2D) {
+        if(this.currHealth === 0) global.gameOver = true;
         if(this.level != global.level) this.currExp = 0; //reset exp when lvl up
         this.level = global.level;  //lvl up set level
         this.expNeeded = 10 * (this.level * 1.5) //update exp needed

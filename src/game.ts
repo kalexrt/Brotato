@@ -1,4 +1,6 @@
 import { global } from './global';
+import { startGame } from './startgame';
+import { handleGameOver } from './gameover';
 import { Player, offsetX, offsetY } from './entities/Player';
 import { keys } from './elements/input';
 import { enemyArray,generateEnemy } from './entities/Enemy';
@@ -25,25 +27,29 @@ const weaponArray: BaseWeapon[] = [];
 
 let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 
-const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
+export const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
 global.level = player.level;
 let weapon1 = new Pistol(player.weaponPositions);
-// let weapon2 = new Smg(player.weaponPositions);
-// let weapon3 = new Minigun(player.weaponPositions);
-// let weapon4 = new Shotgun(player.weaponPositions);
+let weapon2 = new Smg(player.weaponPositions);
+let weapon3 = new Minigun(player.weaponPositions);
+let weapon4 = new Shotgun(player.weaponPositions);
 let weapon5 = new Crossbow(player.weaponPositions);
 
 weaponArray.push(weapon1);
-// weaponArray.push(weapon2);
-// weaponArray.push(weapon3);
-// weaponArray.push(weapon4);
+weaponArray.push(weapon2);
+weaponArray.push(weapon3);
+weaponArray.push(weapon4);
 weaponArray.push(weapon5);
 
 let invulnerability = 0; // invulnerability timer accumulator
-let lastFrame = 0;
+export let lastFrame = 0;
 let pauseSet = new Set ()
 
 export function gameLoop(timestamp:number) {
+    if (global.gameOver) {
+        handleGameOver();
+        return;
+    }
     if (pauseSet.has('p')) {
         drawPaused();
         lastFrame = timestamp;
@@ -141,5 +147,8 @@ window.addEventListener('keydown', (e) => {
         } else {
             pauseSet.add('p');
         }
+    }
+    if (e.code === 'KeyR' && global.gameOver) {
+        startGame();
     }
 });
