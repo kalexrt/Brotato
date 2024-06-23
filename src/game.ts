@@ -20,6 +20,7 @@ import { Minigun } from './weapons/Minigun';
 import { Shotgun } from './weapons/Shotgun';
 import { updateDrawExpBar } from './ui/expbar';
 import { Crossbow } from './weapons/Crossbow';
+import { drawWaveInfo, handleWaves } from './ui/wavetext';
 
 export let projectileArray: Projectile[] = [];
 
@@ -64,6 +65,9 @@ export function gameLoop(timestamp:number) {
     enemySpawnTimer += deltaTime;
     invulnerability += deltaTime;
 
+    //update waves
+    handleWaves(deltaTime);
+    
     // spawn enemy every 3 seconds
     if (enemySpawnTimer >= 200) {
         generateEnemy( getRandomInt(0,canvas.width), getRandomInt(0,canvas.height));
@@ -136,6 +140,9 @@ export function gameLoop(timestamp:number) {
     drawHealthBar(ctx,player.currHealth,player.maxHealth);
     //for exp bar
     updateDrawExpBar(ctx,player.currExp,player.expNeeded);
+    //draw wave info
+    drawWaveInfo();
+    //next frame
     requestAnimationFrame(gameLoop);
 }
 

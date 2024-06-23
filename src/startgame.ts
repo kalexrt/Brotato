@@ -8,6 +8,8 @@ import { materialArray } from "./entities/Material";
 export function startGame() {
     global.gameOver = false;
     global.level = 1;
+    global.wave = 1;
+    global.waveTimeRemaining = 60 * 1000;
     player.currHealth = player.maxHealth; // Reset player health
     player.currExp = 0; // Reset player experience
     enemyArray.splice(0, enemyArray.length); // Clear enemies
