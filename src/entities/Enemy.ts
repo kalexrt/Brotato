@@ -20,18 +20,18 @@ export class Enemy {
     health:number;
     damage:number
 
-    constructor(imageSrc: string, x: number, y: number, height: number = 40, speed: number = 2, health:number = 20) {
+    constructor(imageSrc: string, x: number, y: number) {
         this.image = new Image();
         this.image.src = imageSrc;
         this.x = x;
         this.y = y;
         this.dx = 0;
         this.dy = 0;
-        this.height = height;
-        this.width = height;
-        this.speed = speed;
+        this.height = 40;
+        this.width = 40;
+        this.speed = 2;
         this.isFlipped = false;
-        this.health = health;
+        this.health = 20;
         this.damage = 1;
 
         // ensure the image is loaded before drawing
@@ -51,9 +51,9 @@ export class Enemy {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.strokeStyle = 'blue'; // set the color of the rectangle
-        ctx.lineWidth = 2; // set the width of the rectangle border
-        ctx.strokeRect(this.x, this.y, this.height, this.height); // draw the rectangle
+        // ctx.strokeStyle = 'blue'; // set the color of the rectangle
+        // ctx.lineWidth = 2; // set the width of the rectangle border
+        // ctx.strokeRect(this.x, this.y, this.height, this.height); // draw the rectangle
         if(this.dx < 0) drawFlippedImage(ctx,this.image, this.x , this.y,this.height,this.height);
         else ctx.drawImage(this.image, this.x , this.y,this.height,this.height);
     }

@@ -3,5 +3,8 @@ export const global ={
     wave: 1,
     gameOver: false,
     waveTimeRemaining: 60 * 1000, // 60 seconds in milliseconds
-    hitEffect: false
+    hitEffect: false,
+    offsetX: 0,
+    offsetY: 0,
+    shopActive: false
 }

@@ -21,6 +21,7 @@ export const materialWidth = 20;
 export const materialHeight = 20;
 export const playerPickupRange = 200;
 
+export const pauseSet = new Set ();
 interface Screen {
     width: number;
     height: number;
@@ -39,6 +40,9 @@ hitSound.src ='/hit_effect/audio/damage.mp3'
 export const background =  new Image();
 background.src = '/background/large_map_image.png';
 //'/background/mapwithedges.png' alternate
+
+export const carlImg = new Image();
+carlImg.src = '/character/Carl.png';
 
 export const enemyImagePath = '/enemies/melee.png';
 
@@ -102,3 +106,28 @@ export const materialChoices = [material1,material2,material3]
 
 export const defaultImg = new Image();
 export const defaultAudio =  new Audio();
+
+//shop
+
+export const shopArmorImg = new Image();
+shopArmorImg.src = '/shop/armor.png';
+export const shopAtckSpeedImg = new Image();
+shopAtckSpeedImg.src = '/shop/attack_speed.png';
+export const shopCrossbowImg = new Image();
+shopCrossbowImg.src = '/shop/crossbow_icon.png';
+export const shopHpRegenImg = new Image();
+shopHpRegenImg.src = '/shop/hp_regeneration.png';
+export const shopHpImg = new Image();
+shopHpImg.src = '/shop/max_hp.png';
+export const shopMinigunImg = new Image();
+shopMinigunImg.src = '/shop/minigun_icon.png';
+export const shopPctDamageImg = new Image();
+shopPctDamageImg.src = '/shop/percent_damage.png';
+export const shopPistolImg = new Image();
+shopPistolImg.src = '/shop/pistol_icon.png';
+export const shopShotgunImg = new Image();
+shopShotgunImg.src = '/shop/shotgun_icon.png';
+export const shopSmgImg = new Image();
+shopSmgImg.src = '/shop/smg_icon.png';
+export const shopSpeedImg = new Image();
+shopSpeedImg.src = '/shop/speed.png';

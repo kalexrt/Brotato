@@ -1,6 +1,5 @@
 import { ctx, backgroundMusic, canvas, walkSound } from "./constants";
-import { offsetX, offsetY } from "./entities/Player";
-
+import { global } from "./global";
 export function handleGameOver() {
     walkSound.pause();
     backgroundMusic.pause(); // Pause background music
@@ -9,13 +8,13 @@ export function handleGameOver() {
 
 // Function to draw the game over screen
 function drawGameOverScreen() {
-    ctx.clearRect(-offsetX, -offsetY, canvas.width, canvas.height);
+    ctx.clearRect(-global.offsetX, -global.offsetY, canvas.width, canvas.height);
     ctx.fillStyle = 'black';
-    ctx.fillRect(-offsetX, -offsetY, canvas.width, canvas.height);
+    ctx.fillRect(-global.offsetX, -global.offsetY, canvas.width, canvas.height);
     ctx.fillStyle = 'white';
     ctx.font = '48px "Anybody"';
     ctx.textAlign = 'center';
-    ctx.fillText('Game Over', canvas.width / 2 - offsetX, canvas.height / 2 - offsetY);
+    ctx.fillText('Game Over', canvas.width / 2 - global.offsetX, canvas.height / 2 - global.offsetY);
     ctx.font = '24px "Anybody"';
-    ctx.fillText('Press R to Restart', canvas.width / 2 - offsetX, canvas.height / 2 + 50 - offsetY);
+    ctx.fillText('Press R to Restart', canvas.width / 2 - global.offsetX, canvas.height / 2 + 50 - global.offsetY);
 }

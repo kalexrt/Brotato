@@ -1,12 +1,12 @@
 import { global } from './global';
 import { startGame } from './startgame';
 import { handleGameOver } from './gameover';
-import { Player, offsetX, offsetY } from './entities/Player';
+import { Player } from './entities/Player';
 import { keys } from './elements/input';
 import { enemyArray,generateEnemy } from './entities/Enemy';
 import { SCREEN, canvas,ctx, materialPickup, background } from './constants';
 import { isColliding } from './utils/collision';
-import { drawHealthBar } from './elements/healthbar';
+import { drawHealthBar } from './ui/healthbar';
 import { drawPaused } from './elements/pause';
 import { getRandomInt } from './utils/common';
 import { addRemoveCross } from './elements/spawneffect';
@@ -20,16 +20,18 @@ import { Minigun } from './weapons/Minigun';
 import { Shotgun } from './weapons/Shotgun';
 import { updateDrawExpBar } from './ui/expbar';
 import { Crossbow } from './weapons/Crossbow';
-import { drawWaveInfo, handleWaves } from './ui/wavetext';
+import { drawWaveInfo, handleWaves } from './elements/waves';
 import { handleHitEffect } from './elements/hiteffect';
+import { pauseSet } from './constants';
+import { handleShop } from './elements/shop';
 
 export let projectileArray: Projectile[] = [];
 
-const weaponArray: BaseWeapon[] = [];
+export const weaponArray: BaseWeapon[] = [];
 
 let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 
-export const player = new Player('/character/Carl.png', canvas.width / 2, canvas.height / 2);
+export const player = new Player();
 global.level = player.level;
 let weapon1 = new Pistol(player.weaponPositions);
 let weapon2 = new Smg(player.weaponPositions);
@@ -45,16 +47,19 @@ weaponArray.push(weapon5);
 
 let invulnerability = 0; // invulnerability timer accumulator
 export let lastFrame = 0;
-let pauseSet = new Set ()
+
 
 export function gameLoop(timestamp:number) {
     if (global.gameOver) {
         handleGameOver();
         return;
     }
-    if (pauseSet.has('p')) {
-        drawPaused();
+
+    if (pauseSet.has('p')|| global.shopActive) {
         lastFrame = timestamp;
+        if(global.shopActive) handleShop();
+        else drawPaused();
+        
         requestAnimationFrame(gameLoop);
         return;
     }
@@ -75,7 +80,7 @@ export function gameLoop(timestamp:number) {
         enemySpawnTimer = 0; // Reset the timer
     }
 
-    ctx.clearRect(-offsetX, -offsetY, canvas.width, canvas.height);
+    ctx.clearRect(-global.offsetX, -global.offsetY, canvas.width, canvas.height);
     ctx.drawImage(background,0,0,SCREEN.width,SCREEN.height);
     
     //draw the cross that appears before enemy spawn or remove if it's expired
@@ -110,7 +115,7 @@ export function gameLoop(timestamp:number) {
             invulnerability = 0;
             global.hitEffect = true;
             handleHitEffect(player,timestamp);
-            player.currHealth -= enemy.damage;
+            player.currHealth -= Math.min(0, enemy.damage + player.armor);
         }
         //checkprojectile and enemy collision
         projectileArray.forEach(projectile =>{

@@ -22,7 +22,7 @@ export function addRemoveCross(timestamp:number){
         }
     }
 }
-
+//add fade in and fade out
 export function animateCross(timestamp:number){
     if(!lastAnimationFrame){
         lastAnimationFrame = timestamp;

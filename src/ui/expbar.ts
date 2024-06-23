@@ -1,5 +1,4 @@
 import { levelupSound } from "../constants";
-import { offsetX, offsetY } from "../entities/Player";
 import { global } from "../global";
 
 function drawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: number) {
@@ -13,11 +12,11 @@ function drawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: n
 
     // draw the background bar (max health)
     ctx.fillStyle = 'grey';
-    ctx.fillRect(x - offsetX, y - offsetY, barWidth, barHeight);
+    ctx.fillRect(x - global.offsetX, y - global.offsetY, barWidth, barHeight);
 
     // draw the current health bar
     ctx.fillStyle = '#50d450';
-    ctx.fillRect(x - offsetX, y - offsetY, currHealthWidth, barHeight);
+    ctx.fillRect(x - global.offsetX, y - global.offsetY, currHealthWidth, barHeight);
     // draw the health text
     ctx.fillStyle = 'white';
     ctx.font = '16px "Anybody"';
@@ -27,8 +26,8 @@ function drawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: n
     ctx.lineWidth = 1;
     //text assigning and rendering
     const text = ` Level ${global.level} :   ${currExp} / ${expNeeded}`;
-    ctx.strokeText(text, x + 70 - offsetX , y + 12 - offsetY);
-    ctx.fillText(text, x + 70 - offsetX , y + 12 - offsetY);
+    ctx.strokeText(text, x + 70 - global.offsetX , y + 12 - global.offsetY);
+    ctx.fillText(text, x + 70 - global.offsetX , y + 12 - global.offsetY);
 }
 
 export function updateDrawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: number){

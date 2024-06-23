@@ -1,11 +1,8 @@
-import { SCREEN, ctx, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../constants";
+import { SCREEN, canvas, carlImg, ctx, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import Point from "../shape/Point";
 import { PickupRange } from "../interfaces/PickupRange";
 import { global } from "../global";
-
-export var offsetX = 0;
-export var offsetY = 0;
 
 export class Player {
     image: HTMLImageElement;
@@ -16,6 +13,9 @@ export class Player {
     expNeeded:number;
     currHealth:number;
     maxHealth:number;
+    armor:number;
+    attackSpeed:number;
+    damageIncrease:number;
     width: number;
     height:number;
     speed: number;
@@ -24,22 +24,24 @@ export class Player {
     pickupRange: PickupRange;
     weaponPositions: Point[]
 
-    constructor(imageSrc: string, x: number, y: number,health:number = 10, height:number = 40, speed: number = 4) {
-        this.image = new Image();
-        this.image.src = imageSrc;
-        this.x = x;
-        this.y = y;
+    constructor() {
+        this.image = carlImg;
+        this.x = canvas.width /2;
+        this.y = canvas.height/2;
         this.level = 1;
         this.currExp = 0;
         this.expNeeded = 10 * (this.level * 1.5);
-        this.currHealth = health;
-        this.maxHealth = health;
-        this.width = height;
-        this.height = height;
-        this.speed = speed;
+        this.currHealth = 10;
+        this.maxHealth = 10;
+        this.width = 40;
+        this.height = 40;
+        this.speed = 4;
         this.moveAudio = walkSound;
         this.moveAudio.loop = true; //for continuosly playing walk sound
         this.moveAudio.volume = 0.2;    //for low volume while walking
+        this.attackSpeed = 0;
+        this.damageIncrease = 1;
+        this.armor = 0;
 
         this.isFlipped = false;
         this.pickupRange ={
@@ -66,18 +68,18 @@ export class Player {
         // move up
         if (keys['w'] || keys['ArrowUp']) { 
             this.y -= this.speed;
-            if(offsetY < maxOffsetY){
+            if(global.offsetY < maxOffsetY){
                 ctx.translate(0,this.speed); 
-                offsetY += this.speed; 
+                global.offsetY += this.speed; 
             }
             moved = true;
         } 
         // move left
         if (keys['a'] || keys['ArrowLeft']) { 
             this.x -= this.speed; 
-            if(offsetX < maxOffsetX){
+            if(global.offsetX < maxOffsetX){
                 ctx.translate(this.speed,0); 
-                offsetX += this.speed; 
+                global.offsetX += this.speed; 
             }
             moved = true; 
             if (!this.isFlipped) this.isFlipped = true; 
@@ -85,18 +87,18 @@ export class Player {
         // move down
         if (keys['s'] || keys['ArrowDown']) { 
             this.y += this.speed; 
-            if(offsetY > minOffsetY){
+            if(global.offsetY > minOffsetY){
                 ctx.translate(0,-this.speed); 
-                offsetY -= this.speed; 
+                global.offsetY -= this.speed; 
             }
             moved = true; 
         } 
         // move right
         if (keys['d'] || keys['ArrowRight']) { 
             this.x += this.speed; 
-            if(offsetX > minOffsetX ){
+            if(global.offsetX > minOffsetX ){
                 ctx.translate(-this.speed,0); 
-                offsetX -= this.speed;  
+                global.offsetX -= this.speed;  
             }
             moved = true; 
             if (this.isFlipped) this.isFlipped = false; 
@@ -130,9 +132,9 @@ export class Player {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.strokeStyle = 'red'; // set the color of the rectangle
-        ctx.lineWidth = 2; // set the width of the rectangle border
-        ctx.strokeRect(this.x, this.y, this.height, this.height); // draw the rectangle
+        // ctx.strokeStyle = 'red'; // set the color of the rectangle
+        // ctx.lineWidth = 2; // set the width of the rectangle border
+        // ctx.strokeRect(this.x, this.y, this.height, this.height); // draw the rectangle
 
         if(this.isFlipped) drawFlippedImage(ctx,this.image,this.x,this.y,this.height,this.height);
         else ctx.drawImage(this.image, this.x , this.y, this.height,this.height);
@@ -146,26 +148,6 @@ export class Player {
         this.move(keys);
         this.draw(ctx);
     }
-
-    // hitEffect(timestamp:number){
-    //     if(!this.lastAnimationFrame){
-    //         this.lastAnimationFrame = timestamp;
-    //     }
-    //     const animationDeltaTime = timestamp - this.lastAnimationFrame;
-    //     if (animationDeltaTime > 150){
-    //         this.currentFrame = (this.currentFrame + 1) % this.numOfFrames;
-    //         this.lastAnimationFrame = timestamp
-    //     }
-
-    //     if (hitEffect.active && this.currentFrame === this.numOfFrames - 1) {
-    //         hitEffect.active = false;
-    //         this.currentFrame = 0; // reset the frame for the next hit effect
-    //     }
-    // }
-    // drawHitEffect(){
-    //     ctx.drawImage(this.hitImg,256*this.currentFrame,0,256,256,this.x - 40,this.y - 40,this.height*3,this.height*3);
-    // } 
-
     updateWeaponPosition(){
         this.weaponPositions = [
             new Point(this.x - weaponOffset + this.height, this.y + this.height - weaponOffset), //bottom right

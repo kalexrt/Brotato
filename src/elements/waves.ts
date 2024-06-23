@@ -1,12 +1,14 @@
 import { global } from "../global";
 import { ctx, canvas } from "../constants";
-import { offsetX, offsetY } from "../entities/Player";
+import { openShop } from "./shop";
 
 export function handleWaves(deltaTime:number){
     global.waveTimeRemaining -= deltaTime;
 
     if (global.waveTimeRemaining <= 0) {
         global.wave++; // Increment wave number
+        openShop();
+        global.shopActive = true;
         global.waveTimeRemaining = 60 * 1000; // Reset wave timer to 60 seconds
     }
 }
@@ -20,9 +22,9 @@ export function drawWaveInfo() {
     const timeRemainingText = `${timeInSeconds}`;
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
-    ctx.strokeText(waveNumberText,canvas.width / 2 - offsetX, 30 - offsetY);
-    ctx.fillText(waveNumberText, canvas.width / 2 - offsetX, 30 - offsetY);
+    ctx.strokeText(waveNumberText,canvas.width / 2 - global.offsetX, 30 - global.offsetY);
+    ctx.fillText(waveNumberText, canvas.width / 2 - global.offsetX, 30 - global.offsetY);
     ctx.font = '30px "Anybody"';
-    ctx.strokeText(timeRemainingText, canvas.width / 2 - offsetX, 60 - offsetY);
-    ctx.fillText(timeRemainingText, canvas.width / 2 - offsetX, 60 - offsetY)
+    ctx.strokeText(timeRemainingText, canvas.width / 2 - global.offsetX, 60 - global.offsetY);
+    ctx.fillText(timeRemainingText, canvas.width / 2 - global.offsetX, 60 - global.offsetY)
 }
