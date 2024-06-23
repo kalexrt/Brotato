@@ -1,4 +1,4 @@
-import { SCREEN, ctx, hitEffect, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../constants";
+import { SCREEN, ctx, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import Point from "../shape/Point";
 import { PickupRange } from "../interfaces/PickupRange";
@@ -20,10 +20,6 @@ export class Player {
     height:number;
     speed: number;
     moveAudio: HTMLAudioElement;
-    currentFrame:number;
-    numOfFrames:number;
-    lastAnimationFrame:number;
-    hitImg:HTMLImageElement;
     isFlipped:boolean;
     pickupRange: PickupRange;
     weaponPositions: Point[]
@@ -44,11 +40,7 @@ export class Player {
         this.moveAudio = walkSound;
         this.moveAudio.loop = true; //for continuosly playing walk sound
         this.moveAudio.volume = 0.2;    //for low volume while walking
-        this.currentFrame = 0;
-        this.numOfFrames = 4;  //this is 4 because hitEffect.active resets it before 4th framse is called
-        this.lastAnimationFrame = 0;
-        this.hitImg = new Image();
-        this.hitImg.src ='/hit_effect/hit-effect.png'
+
         this.isFlipped = false;
         this.pickupRange ={
             x: this.x - playerPickupRange/2,
@@ -155,24 +147,24 @@ export class Player {
         this.draw(ctx);
     }
 
-    hitEffect(timestamp:number){
-        if(!this.lastAnimationFrame){
-            this.lastAnimationFrame = timestamp;
-        }
-        const animationDeltaTime = timestamp - this.lastAnimationFrame;
-        if (animationDeltaTime > 150){
-            this.currentFrame = (this.currentFrame + 1) % this.numOfFrames;
-            this.lastAnimationFrame = timestamp
-        }
+    // hitEffect(timestamp:number){
+    //     if(!this.lastAnimationFrame){
+    //         this.lastAnimationFrame = timestamp;
+    //     }
+    //     const animationDeltaTime = timestamp - this.lastAnimationFrame;
+    //     if (animationDeltaTime > 150){
+    //         this.currentFrame = (this.currentFrame + 1) % this.numOfFrames;
+    //         this.lastAnimationFrame = timestamp
+    //     }
 
-        if (hitEffect.active && this.currentFrame === this.numOfFrames - 1) {
-            hitEffect.active = false;
-            this.currentFrame = 0; // reset the frame for the next hit effect
-        }
-    }
-    drawHitEffect(){
-        ctx.drawImage(this.hitImg,256*this.currentFrame,0,256,256,this.x - 40,this.y - 40,this.height*3,this.height*3);
-    } 
+    //     if (hitEffect.active && this.currentFrame === this.numOfFrames - 1) {
+    //         hitEffect.active = false;
+    //         this.currentFrame = 0; // reset the frame for the next hit effect
+    //     }
+    // }
+    // drawHitEffect(){
+    //     ctx.drawImage(this.hitImg,256*this.currentFrame,0,256,256,this.x - 40,this.y - 40,this.height*3,this.height*3);
+    // } 
 
     updateWeaponPosition(){
         this.weaponPositions = [

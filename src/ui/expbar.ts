@@ -23,7 +23,12 @@ function drawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: n
     ctx.font = '16px "Anybody"';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(` Level ${global.level} :   ${currExp} / ${expNeeded}`, x + 55 - offsetX , y + 12 - offsetY );
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
+    //text assigning and rendering
+    const text = ` Level ${global.level} :   ${currExp} / ${expNeeded}`;
+    ctx.strokeText(text, x + 70 - offsetX , y + 12 - offsetY);
+    ctx.fillText(text, x + 70 - offsetX , y + 12 - offsetY);
 }
 
 export function updateDrawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: number){

@@ -18,6 +18,7 @@ export class Enemy {
     speed: number;
     isFlipped: boolean;
     health:number;
+    damage:number
 
     constructor(imageSrc: string, x: number, y: number, height: number = 40, speed: number = 2, health:number = 20) {
         this.image = new Image();
@@ -31,6 +32,7 @@ export class Enemy {
         this.speed = speed;
         this.isFlipped = false;
         this.health = health;
+        this.damage = 1;
 
         // ensure the image is loaded before drawing
         this.image.onload = () => {

@@ -30,19 +30,18 @@ export const SCREEN: Screen = {
     height: 720
 };
 
-interface hitEffect{
-    active: boolean;
-};
+export const hitImg = new Image();
+hitImg.src ='/hit_effect/hit-effect.png'
 
-export const hitEffect ={
-    active : false
-};
+export const hitSound = new Audio();
+hitSound.src ='/hit_effect/audio/damage.mp3'
 
 export const background =  new Image();
 background.src = '/background/large_map_image.png';
 //'/background/mapwithedges.png' alternate
 
 export const enemyImagePath = '/enemies/melee.png';
+
 export const crossImage = new Image();
 crossImage.src = '/spawn_effect/crosssprite.png'
 

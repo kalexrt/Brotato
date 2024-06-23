@@ -21,5 +21,10 @@ export function drawHealthBar(ctx: CanvasRenderingContext2D, currHealth: number,
     ctx.font = '16px "Anybody"';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(`HP : ${Math.max(0,currHealth)} / ${maxHealth}`, x + 45 - offsetX , y + 12 - offsetY );
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
+    //assign and trender text
+    const text = `HP : ${Math.max(0,currHealth)} / ${maxHealth}`;
+    ctx.strokeText(text, x + 60 - offsetX , y + 12 - offsetY);
+    ctx.fillText(text, x + 60 - offsetX , y + 12 - offsetY );
 }

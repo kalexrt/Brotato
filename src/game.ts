@@ -4,7 +4,7 @@ import { handleGameOver } from './gameover';
 import { Player, offsetX, offsetY } from './entities/Player';
 import { keys } from './elements/input';
 import { enemyArray,generateEnemy } from './entities/Enemy';
-import { SCREEN, canvas,ctx, hitEffect, materialPickup, background } from './constants';
+import { SCREEN, canvas,ctx, materialPickup, background } from './constants';
 import { isColliding } from './utils/collision';
 import { drawHealthBar } from './elements/healthbar';
 import { drawPaused } from './elements/pause';
@@ -21,6 +21,7 @@ import { Shotgun } from './weapons/Shotgun';
 import { updateDrawExpBar } from './ui/expbar';
 import { Crossbow } from './weapons/Crossbow';
 import { drawWaveInfo, handleWaves } from './ui/wavetext';
+import { handleHitEffect } from './elements/hiteffect';
 
 export let projectileArray: Projectile[] = [];
 
@@ -107,13 +108,16 @@ export function gameLoop(timestamp:number) {
         enemy.update(player.x, player.y, ctx);
         if(isColliding(enemy,player) && invulnerability > 400){
             invulnerability = 0;
-            hitEffect.active = true;
-            player.currHealth--;
+            global.hitEffect = true;
+            handleHitEffect(player,timestamp);
+            player.currHealth -= enemy.damage;
         }
         //checkprojectile and enemy collision
         projectileArray.forEach(projectile =>{
             if(isColliding(enemy,projectile)){
-                addToDamageTextArray(enemy.x + enemy.width/2, enemy.y + enemy.height/2, projectile.damage, timestamp)
+                addToDamageTextArray(enemy.x + enemy.width/2, enemy.y + enemy.height/2, projectile.damage, timestamp);
+                global.hitEffect = true;
+                handleHitEffect(enemy,timestamp);
                 enemy.health -= projectile.damage;
             }
         })
@@ -131,11 +135,6 @@ export function gameLoop(timestamp:number) {
     //remove elements that are out of weapon's range
     projectileArray = projectileArray.filter(projectile => !projectile.isOutOfRange());
 
-    //check hit effect 
-    if(hitEffect.active){
-        player.drawHitEffect();
-        player.hitEffect(timestamp);
-    }
     //for health bar
     drawHealthBar(ctx,player.currHealth,player.maxHealth);
     //for exp bar
