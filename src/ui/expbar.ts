@@ -34,6 +34,7 @@ export function updateDrawExpBar(ctx: CanvasRenderingContext2D, currExp: number,
     if(currExp >= expNeeded){
         levelupSound.play();
         global.level += 1;
+        global.levelsGained += 1;
     }
     drawExpBar(ctx, currExp, expNeeded);
 }

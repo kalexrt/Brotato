@@ -115,7 +115,7 @@ export function gameLoop(timestamp:number) {
             invulnerability = 0;
             global.hitEffect = true;
             handleHitEffect(player,timestamp);
-            player.currHealth -= Math.min(0, enemy.damage + player.armor);
+            player.currHealth -= Math.max(0, enemy.damage + player.armor);
         }
         //checkprojectile and enemy collision
         projectileArray.forEach(projectile =>{

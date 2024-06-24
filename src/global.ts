@@ -6,5 +6,6 @@ export const global ={
     hitEffect: false,
     offsetX: 0,
     offsetY: 0,
+    levelsGained: 0,
     shopActive: false
 }
