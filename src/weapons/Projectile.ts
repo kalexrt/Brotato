@@ -13,15 +13,25 @@ export class Projectile {
     damage: number;
     range:number;
 
-    constructor(image:HTMLImageElement ,x: number, y: number, direction: number, damage: number,range: number) {
+    constructor(
+        image:HTMLImageElement ,
+        x: number, 
+        y: number, 
+        direction: number, 
+        damage: number,
+        range: number,
+        width:number = bulletWidth, 
+        height:number = bulletHeight,
+        speed:number = bulletSpeed
+    ) {
         this.image = image;
-        this.width = bulletWidth;
-        this.height = bulletHeight;
+        this.width = width;
+        this.height = height;
         this.startX = x; //keep track of bullet start to remove it when out of range
         this.startY = y; //keep track of bullet start to remove it when out of range
         this.x = x;
         this.y = y;
-        this.speed = bulletSpeed;
+        this.speed = speed;
         this.direction = direction; // in radians
         this.damage = damage; //damage and range are taken from the gun.
         this.range = range;
@@ -35,7 +45,6 @@ export class Projectile {
         const distance = Math.sqrt((this.x - this.startX) ** 2 + (this.y - this.startY) ** 2);
         return distance > this.range;
     }
-    
     draw(ctx: CanvasRenderingContext2D) {
         ctx.save();
         ctx.translate(this.x, this.y);

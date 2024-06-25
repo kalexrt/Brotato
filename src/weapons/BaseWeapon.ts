@@ -10,6 +10,7 @@ export class BaseWeapon {
     static maxPositions: number = 4;
 
     image: HTMLImageElement;
+    name: string;
     damage: number;
     fireRate: number;
     range: number;
@@ -27,6 +28,7 @@ export class BaseWeapon {
 
     constructor(weaponPositions: Point[]) {
         this.image = defaultImg;
+        this.name = '';
         this.damage = 0;
         this.fireRate = 0;
         this.range = 0;

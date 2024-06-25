@@ -6,6 +6,7 @@ import { BigWeapon } from "./BigWeapon";
 export class Minigun extends BigWeapon{
     constructor(weaponPositions: Point[]) {
         super(weaponPositions);
+        this.name = 'Minigun'
         this.image = minigunImg;
         this.sound = minigunSound;
         this.damage = (this.tier * 10) * player.damageIncrease;

@@ -7,6 +7,7 @@ export class Smg extends SmallWeapon{
     constructor(weaponPositions: Point[]) {
         super(weaponPositions);
         this.image = smgImg;
+        this.name = 'Smg';
         this.sound = smgSound;
         this.damage = (this.tier * 7) * player.damageIncrease;
         this.fireRate = (300 - this.tier*20) - player.attackSpeed;

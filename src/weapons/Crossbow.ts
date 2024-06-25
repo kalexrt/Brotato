@@ -6,6 +6,7 @@ import { MediumWeapon } from "./MediumWeapon";
 export class Crossbow extends MediumWeapon{
     constructor(weaponPositions: Point[]) {
         super(weaponPositions);
+        this.name = 'Crossbow';
         this.image = crossbowImg;
         this.sound = crossbowSound;
         this.damage = (this.tier * 30) * player.damageIncrease;

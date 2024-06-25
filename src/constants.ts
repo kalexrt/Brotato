@@ -41,10 +41,27 @@ export const background =  new Image();
 background.src = '/background/large_map_image.png';
 //'/background/mapwithedges.png' alternate
 
+//characters
 export const carlImg = new Image();
 carlImg.src = '/character/Carl.png';
 
-export const enemyImagePath = '/enemies/melee.png';
+export const golemImg = new Image();
+golemImg.src ='/character/Golem.png';
+
+//enemy
+export const meleeEnemyImg = new Image();
+meleeEnemyImg.src = '/enemies/melee.png';
+export const rangeEnemyImg = new Image();
+rangeEnemyImg.src = '/enemies/ranged.png';
+export const speedyEnemyImg = new Image();
+speedyEnemyImg.src = '/enemies/speedy.png';
+export const bigEnemyImg = new Image();
+bigEnemyImg.src = '/enemies/bigboi.png';
+export const bossEnemyImg = new Image();
+bossEnemyImg.src = '/enemies/boss.png';
+
+export const enemyProjectileImg = new Image();
+enemyProjectileImg.src ='/projectile/bullet_enemy.png'
 
 export const crossImage = new Image();
 crossImage.src = '/spawn_effect/crosssprite.png'
@@ -131,3 +148,14 @@ export const shopSmgImg = new Image();
 shopSmgImg.src = '/shop/smg_icon.png';
 export const shopSpeedImg = new Image();
 shopSpeedImg.src = '/shop/speed.png';
+
+// menu
+
+export const menuButtonFocusSound = new Audio();
+menuButtonFocusSound.src = '/menu/audio/menubuttonfocus.mp3'
+
+export const menuButtonClickSound = new Audio();
+menuButtonClickSound.src = '/menu/audio/menubuttonclick.mp3'
+
+export const menuBackground = new Image();
+menuBackground.src ='/menu/mainmenubg.png'

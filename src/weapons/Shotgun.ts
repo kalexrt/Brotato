@@ -7,6 +7,7 @@ export class Shotgun extends MediumWeapon{
     constructor(weaponPositions: Point[]) {
         super(weaponPositions);
         this.image = shotgunImg;
+        this.name = 'Shotgun'
         this.sound = shotgunSound;
         this.damage = (this.tier * 30) * player.damageIncrease;
         this.fireRate = (1500 - this.tier*50) - player.attackSpeed;

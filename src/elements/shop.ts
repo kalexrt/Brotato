@@ -1,6 +1,7 @@
-import { ctx,canvas } from "../constants";
+import { ctx,canvas, menuButtonFocusSound, menuButtonClickSound } from "../constants";
 import { global } from "../global";
-import { player, weaponArray } from "../game";
+import { weaponArray } from "../game";
+import { player } from "../game";
 import { Pistol } from "../weapons/Pistol";
 import { Smg } from "../weapons/Smg";
 import { Minigun } from "../weapons/Minigun";
@@ -28,17 +29,28 @@ const shopUpgrades = [new Armor(), new AttackSpeed, new HpRegen(), new MaxHp(), 
 let availableShopItems:ShopItem[] = [];
 
 export function openShop() {
-    // Randomly select items and upgrades
+    // randomly select items and upgrades
     availableShopItems = [];
+
+    //to remove duplicates
+    let remainingShopItems = [...shopItems];
+    let remainingShopUpgrades = [...shopUpgrades];
+
     for (let i = 0; i < 2; i++) {
-        const randomItem = shopItems[Math.floor(Math.random() * shopItems.length)];
+        const randomIndex = Math.floor(Math.random() * remainingShopItems.length);
+        const randomItem = remainingShopItems[randomIndex];
         availableShopItems.push(randomItem);
+        remainingShopItems.splice(randomIndex, 1); // remove the selected item to ensure unique
     }
+
     for (let i = 0; i < 2; i++) {
-        const randomUpgrade = shopUpgrades[Math.floor(Math.random() * shopUpgrades.length)];
+        const randomIndex = Math.floor(Math.random() * remainingShopUpgrades.length);
+        const randomUpgrade = remainingShopUpgrades[randomIndex];
         availableShopItems.push(randomUpgrade);
+        remainingShopUpgrades.splice(randomIndex, 1); // remove the selected upgrade
     }
-    global.shopActive = true; // Pause the game for the shop
+    
+    global.shopActive = true; // pause the game for the shop
 }
 
 function drawShop() {
@@ -177,6 +189,7 @@ canvas.addEventListener('click', function(event) {
                 mouseY >= y &&
                 mouseY <= y + 300
             ) {
+                menuButtonClickSound.play();
                 handleShopSelection(index);
             }
         }
@@ -206,6 +219,7 @@ canvas.addEventListener('mousemove', function(event) {
                 mouseY >= y &&
                 mouseY <= y + 300
             ) {
+                menuButtonFocusSound.play();
                 hover = true;
             }
         }

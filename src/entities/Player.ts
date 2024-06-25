@@ -1,4 +1,4 @@
-import { SCREEN, canvas, carlImg, ctx, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../constants";
+import { SCREEN, canvas, ctx, defaultImg, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import Point from "../shape/Point";
 import { PickupRange } from "../interfaces/PickupRange";
@@ -25,12 +25,12 @@ export class Player {
     weaponPositions: Point[]
 
     constructor() {
-        this.image = carlImg;
+        this.image = defaultImg;
         this.x = canvas.width /2;
         this.y = canvas.height/2;
         this.level = 1;
         this.currExp = 0;
-        this.expNeeded = 10 * (this.level * 1.5);
+        this.expNeeded = 10 + (this.level * 10);
         this.currHealth = 10;
         this.maxHealth = 10;
         this.width = 40;
@@ -135,16 +135,15 @@ export class Player {
         // ctx.strokeStyle = 'red'; // set the color of the rectangle
         // ctx.lineWidth = 2; // set the width of the rectangle border
         // ctx.strokeRect(this.x, this.y, this.height, this.height); // draw the rectangle
-
         if(this.isFlipped) drawFlippedImage(ctx,this.image,this.x,this.y,this.height,this.height);
         else ctx.drawImage(this.image, this.x , this.y, this.height,this.height);
     }
 
     update(keys: { [key: string]: boolean }, ctx: CanvasRenderingContext2D) {
-        if(this.currHealth === 0) global.gameOver = true;
+        if(this.currHealth <= 0) global.gameOver = true;
         if(this.level != global.level) this.currExp = 0; //reset exp when lvl up
         this.level = global.level;  //lvl up set level
-        this.expNeeded = 10 * (this.level * 1.5) //update exp needed
+        this.expNeeded = 10 + (this.level * 10) //update exp needed
         this.move(keys);
         this.draw(ctx);
     }

@@ -1,9 +1,9 @@
 import { global } from './global';
 import { startGame } from './startgame';
 import { handleGameOver } from './gameover';
-import { Player } from './entities/Player';
 import { keys } from './elements/input';
-import { enemyArray,generateEnemy } from './entities/Enemy';
+import { generateEnemy } from './elements/generateEnemy';
+import { enemyArray } from './entities/Enemy';
 import { SCREEN, canvas,ctx, materialPickup, background } from './constants';
 import { isColliding } from './utils/collision';
 import { drawHealthBar } from './ui/healthbar';
@@ -24,26 +24,30 @@ import { drawWaveInfo, handleWaves } from './elements/waves';
 import { handleHitEffect } from './elements/hiteffect';
 import { pauseSet } from './constants';
 import { handleShop } from './elements/shop';
+// import {player } from './ui/characterSelection';
+import { Carl } from './characters/Carl';
+import { RangeEnemy } from './enemies/RangeEnemy';
 
+export let enemyProjectileArray:Projectile[] = [];
 export let projectileArray: Projectile[] = [];
 
 export const weaponArray: BaseWeapon[] = [];
 
 let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 
-export const player = new Player();
+export const player = new Carl();
 global.level = player.level;
-let weapon1 = new Pistol(player.weaponPositions);
-let weapon2 = new Smg(player.weaponPositions);
-let weapon3 = new Minigun(player.weaponPositions);
-let weapon4 = new Shotgun(player.weaponPositions);
-let weapon5 = new Crossbow(player.weaponPositions);
+// let weapon1 = new Pistol(player.weaponPositions);
+// let weapon2 = new Smg(player.weaponPositions);
+// let weapon3 = new Minigun(player.weaponPositions);
+// let weapon4 = new Shotgun(player.weaponPositions);
+// let weapon5 = new Crossbow(player.weaponPositions);
 
-weaponArray.push(weapon1);
-weaponArray.push(weapon2);
-weaponArray.push(weapon3);
-weaponArray.push(weapon4);
-weaponArray.push(weapon5);
+// weaponArray.push(weapon1);
+// weaponArray.push(weapon2);
+// weaponArray.push(weapon3);
+// weaponArray.push(weapon4);
+// weaponArray.push(weapon5);
 
 let invulnerability = 0; // invulnerability timer accumulator
 export let lastFrame = 0;
@@ -64,9 +68,8 @@ export function gameLoop(timestamp:number) {
         return;
     }
 
-    const deltaTime = timestamp - lastFrame; //calculate time difference between last frame and current frame
+    const deltaTime = Math.min(200,timestamp - lastFrame); //calculate time difference between last frame and current frame
     lastFrame = timestamp;
-    
     //count invulnerability and enemyspawn time
     enemySpawnTimer += deltaTime;
     invulnerability += deltaTime;
@@ -75,8 +78,8 @@ export function gameLoop(timestamp:number) {
     handleWaves(deltaTime);
     
     // spawn enemy every 3 seconds
-    if (enemySpawnTimer >= 200) {
-        generateEnemy( getRandomInt(0,canvas.width), getRandomInt(0,canvas.height));
+    if (enemySpawnTimer >= 3000) {
+        generateEnemy( getRandomInt(0,canvas.width), getRandomInt(0,canvas.height),1);
         enemySpawnTimer = 0; // Reset the timer
     }
 
@@ -110,12 +113,13 @@ export function gameLoop(timestamp:number) {
     
    //enemy array operations
     enemyArray.forEach(enemy => {
-        enemy.update(player.x, player.y, ctx);
+        if(enemy instanceof RangeEnemy) enemy.updateAndFire(player.x,player.y,ctx,timestamp)
+        else enemy.update(player.x, player.y, ctx);
         if(isColliding(enemy,player) && invulnerability > 400){
             invulnerability = 0;
             global.hitEffect = true;
             handleHitEffect(player,timestamp);
-            player.currHealth -= Math.max(0, enemy.damage + player.armor);
+            player.currHealth -= Math.max(0, enemy.damage - player.armor);
         }
         //checkprojectile and enemy collision
         projectileArray.forEach(projectile =>{
@@ -136,9 +140,24 @@ export function gameLoop(timestamp:number) {
         projectile.update();
         projectile.draw(ctx);
     })
-
     //remove elements that are out of weapon's range
     projectileArray = projectileArray.filter(projectile => !projectile.isOutOfRange());
+
+  //enemy projectile array
+for (let i = enemyProjectileArray.length - 1; i >= 0; i--) {
+    let projectile = enemyProjectileArray[i];
+    projectile.update();
+    projectile.draw(ctx);
+    if (isColliding(projectile, player)) {
+        invulnerability = 0;
+        global.hitEffect = true;
+        handleHitEffect(player, timestamp);
+        player.currHealth -= Math.max(0, projectile.damage - player.armor);
+        enemyProjectileArray.splice(i, 1); // remove the projectile from the array
+    } else if (projectile.isOutOfRange()) {
+        enemyProjectileArray.splice(i, 1); // remove the projectile if it's out of range
+    }
+}
 
     //for health bar
     drawHealthBar(ctx,player.currHealth,player.maxHealth);

@@ -1,7 +1,6 @@
 import './style.css'
-import { startGame } from './startgame';
-
+import { mainmenu } from './ui/mainmenu'
 
 window.onload = () => {
-    startGame();
-}
+    mainmenu();
+};

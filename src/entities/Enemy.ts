@@ -1,8 +1,8 @@
-import { ctx,enemyImagePath } from "../constants";
+import { ctx,defaultImg } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import { Cross } from "../interfaces/Cross";
 import { Material, materialArray } from "./Material";
-import { global } from "../global";
+
 
 export const crosses:Cross[] = [];
 
@@ -20,9 +20,8 @@ export class Enemy {
     health:number;
     damage:number
 
-    constructor(imageSrc: string, x: number, y: number) {
-        this.image = new Image();
-        this.image.src = imageSrc;
+    constructor(x: number, y: number) {
+        this.image = defaultImg;
         this.x = x;
         this.y = y;
         this.dx = 0;
@@ -30,9 +29,9 @@ export class Enemy {
         this.height = 40;
         this.width = 40;
         this.speed = 2;
-        this.isFlipped = false;
         this.health = 20;
         this.damage = 1;
+        this.isFlipped = false;
 
         // ensure the image is loaded before drawing
         this.image.onload = () => {
@@ -66,20 +65,11 @@ export class Enemy {
             // remove the enemy from the array if health is zero or less
             const index = enemyArray.indexOf(this);
             if (index > -1) {
-                enemyArray.splice(index, 1);
+                enemyArray.splice(index, 1); //number remoes 1 element from array
             }
             return; // exit the method if the enemy is removed
         }
         this.move(playerX, playerY);
         this.draw(ctx);
     }
-}
-
-export function generateEnemy(x:number,y:number){
-    crosses.push({ x, y, expireTime: Date.now() + 1000 });
-    setTimeout(() => {
-        if (global.gameOver) return;
-        const enemy = new Enemy(enemyImagePath, x, y)
-        enemyArray.push(enemy)
-      }, 1000);
 }

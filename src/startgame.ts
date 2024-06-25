@@ -1,9 +1,8 @@
 import { global } from "./global";
+// import { player } from "./ui/characterSelection";
 import { player } from "./game";
-import { enemyArray } from "./entities/Enemy";
-import { projectileArray,gameLoop } from "./game";
+import { gameLoop } from "./game";
 import { backgroundMusic, canvas } from "./constants";
-import { materialArray } from "./entities/Material";
 import { resetWave } from "./elements/reset";
 
 export function startGame() {
@@ -15,8 +14,7 @@ export function startGame() {
         player.currExp = 0; // Reset player experience
     } 
     global.gameOver = false;
-    
-    global.waveTimeRemaining = 20 * 1000;
+    global.waveTimeRemaining = 60 * 1000;
     //reset player positions
     player.x = canvas.width/2;
     player.y = canvas.height/2; 
