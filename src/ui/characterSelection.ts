@@ -8,7 +8,7 @@ import { startGame } from "../startgame";
 let selectedCharacter: Player | null = null;
 let selectedWeapon: string | null = null;
 
-// export let player = new Carl();
+// let player = new Carl();
 
 export function characterSelection() {
     const characters = [
@@ -82,9 +82,10 @@ export function characterSelection() {
             document.getElementById('canvas')!.style.display = 'block';
             // if(selectedCharacter === 'Carl') player = new Carl();
             // else player = new Golem();
+            // player = selectedCharacter;
 
             startGame(); 
-
+ 
         } else {
             alert("Please select both a character and a weapon.");
         }

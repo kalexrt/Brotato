@@ -22,6 +22,8 @@ import { Speed } from "../shopitems/Speed";
 import { resetWave } from "./reset";
 import { KnifeShop } from "../shopitems/KnifeShop";
 import { ScrewdriverShop } from "../shopitems/Screwdriver";
+import { Knife } from "../weapons/Knife";
+import { Screwdriver } from "../weapons/Screwdriver";
 
 export function handleShop(){
     drawShop();
@@ -104,7 +106,7 @@ export function handleShopSelection(selection:number) {
                     weaponArray.push(weapon0);
                 }
                 break;
-            case 'SMG':
+            case 'Smg':
                 existingWeapon = weaponArray.find(weapon => weapon instanceof Smg);
                 if (existingWeapon) {
                     existingWeapon.tier += 1;
@@ -138,6 +140,24 @@ export function handleShopSelection(selection:number) {
                 } else {
                     let weapon4 = new Shotgun(player.weaponPositions);
                     weaponArray.push(weapon4);
+                }
+                break;
+            case 'Knife':
+                existingWeapon = weaponArray.find(weapon => weapon instanceof Knife);
+                if (existingWeapon) {
+                    existingWeapon.tier += 1;
+                } else {
+                    let weapon5 = new Knife(player.weaponPositions);
+                    weaponArray.push(weapon5);
+                }
+                break;
+            case 'Screwdriver':
+                existingWeapon = weaponArray.find(weapon => weapon instanceof Screwdriver);
+                if (existingWeapon) {
+                    existingWeapon.tier += 1;
+                } else {
+                    let weapon6 = new Screwdriver(player.weaponPositions);
+                    weaponArray.push(weapon6);
                 }
                 break;
             case 'Max Hp up':
