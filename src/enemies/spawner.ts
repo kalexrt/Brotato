@@ -8,28 +8,28 @@ export function spawnEnemiesBasedOnWave() {
         let enemyTypes;
         switch(global.wave) {
             case 1:
-                // Wave 1: Spawn only melee basic enemies
-                enemyTypes = 1;
-                break;
-            case 2:
-                // Wave 2: Spawn melee and ranged enemies
+                //melee and eye enemy
                 enemyTypes = 2;
                 break;
+            case 2:
+                // old wave + range and head
+                enemyTypes = 4;
+                break;
             case 3:
-                // Wave 3: Spawn melee, ranged, and speedy enemies
-                enemyTypes = 3;
+                // old wave + speedy and mouth
+                enemyTypes = 6;
                 break;
             case 4:
-                // Wave 4: Spawn melee, ranged, speedy, and big enemies
-                enemyTypes = 4;
+                // old wave + big
+                enemyTypes = 7;
                 break;
             case 5:
-                // Wave 5: Spawn all types of enemies and boss (index 4)
-                enemyTypes = 4;
+                //old wave + boss
+                enemyTypes = 7;
                 break;
             default:
-                // For waves beyond 5, spawn a mix of all enemy types except boss
-                enemyTypes = 4;
+                // all enemies
+                enemyTypes = 7;
                 break;
         }
 
@@ -39,7 +39,7 @@ export function spawnEnemiesBasedOnWave() {
 
         if (!global.bossSpawned && global.wave > 4) {
             setTimeout(()=>{
-                generateEnemy(getRandomInt(0, canvas.width), getRandomInt(0, canvas.height), 4);
+                generateEnemy(getRandomInt(0, canvas.width), getRandomInt(0, canvas.height), 7);
             },5000)
             global.bossSpawned = true; // ensure the boss only spawns once
         }

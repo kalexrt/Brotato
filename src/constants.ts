@@ -42,7 +42,6 @@ hitSound.src ='/hit_effect/audio/damage.mp3'
 
 export const background =  new Image();
 background.src = '/background/large_map_image.png';
-//'/background/mapwithedges.png' alternate
 
 //characters
 export const carlImg = new Image();
@@ -60,6 +59,12 @@ export const speedyEnemyImg = new Image();
 speedyEnemyImg.src = '/enemies/speedy.png';
 export const bigEnemyImg = new Image();
 bigEnemyImg.src = '/enemies/bigboi.png';
+export const headEnemyImg = new Image();
+headEnemyImg.src = '/enemies/head.png';
+export const eyeEnemyImg = new Image();
+eyeEnemyImg.src = '/enemies/eye.png';
+export const mouthEnemyImg = new Image();
+mouthEnemyImg.src = '/enemies/mouth.png';
 export const bossEnemyImg = new Image();
 bossEnemyImg.src = '/enemies/boss.png';
 
@@ -69,6 +74,7 @@ enemyProjectileImg.src ='/projectile/bullet_enemy.png'
 export const crossImage = new Image();
 crossImage.src = '/spawn_effect/crosssprite.png'
 
+//weapons
 export const pistolImg = new Image();
 pistolImg.src = '/weapons/pistol.png';
 

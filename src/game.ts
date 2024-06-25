@@ -2,7 +2,7 @@ import { global } from './global';
 import { handleGameOver } from './gameover';
 import { keys } from './elements/input';
 import { enemyArray } from './entities/Enemy';
-import { SCREEN, canvas,ctx, materialPickup, background } from './constants';
+import { SCREEN, canvas,ctx, materialPickup, background, levelupSound } from './constants';
 import { isColliding } from './utils/collision';
 import { drawHealthBar } from './ui/healthbar';
 import { drawPaused } from './elements/pause';
@@ -80,6 +80,7 @@ export function gameLoop(timestamp:number) {
         crate.draw();
         if(isColliding(crate,player.pickupRange)){
             global.levelsGained += 1;
+            levelupSound.play();
             crateArray.splice(index,1);
         }
     }

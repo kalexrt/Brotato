@@ -9,6 +9,6 @@ export class BossEnemy extends Enemy{
         this.width = 80;
         this.speed = 1;
         this.health = 3000;
-        this.damage = 5;
+        this.damage = 10;
     }
 }

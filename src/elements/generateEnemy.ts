@@ -6,6 +6,9 @@ import { BigeEnemy } from "../enemies/BigEnemy";
 import { BossEnemy } from "../enemies/BossEnemy";
 import { crosses } from "../entities/Enemy";
 import { enemyArray } from "../entities/Enemy";
+import { EyeEnemy } from "../enemies/EyeEnemy";
+import { HeadEnemy } from "../enemies/HeadEnemy";
+import { MouthEnemy } from "../enemies/MouthEnemy";
 
 export function generateEnemy(x:number,y:number,index:number){
     crosses.push({ x, y, expireTime: Date.now() + 1000 });
@@ -18,15 +21,24 @@ export function generateEnemy(x:number,y:number,index:number){
                 enemy = new MeleeEnemy(x, y);
                 break;
             case 1:
-                enemy = new RangeEnemy(x, y);
+                enemy = new EyeEnemy(x,y);
                 break;
             case 2:
-                enemy = new SpeedyEnemy(x, y);
+                enemy = new RangeEnemy(x, y);
                 break;
             case 3:
-                enemy = new BigeEnemy(x, y);
+                enemy = new HeadEnemy(x,y);
                 break;
             case 4:
+                enemy = new SpeedyEnemy(x, y);
+                break;
+            case 5:
+                enemy = new MouthEnemy(x,y);
+                break;
+            case 6:
+                enemy = new BigeEnemy(x, y);
+                break;
+            case 7:
                 enemy = new BossEnemy(x, y);
                 break;
             default:
