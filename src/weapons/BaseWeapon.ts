@@ -104,7 +104,7 @@ export class BaseWeapon {
         if (this.targetEnemy && currentTime - this.lastFireTime >= this.fireRate) {
             this.sound.currentTime = 0;
             this.sound.play();
-            projectileArray.push(new Projectile(this.projectile,this.x+this.width,this.y+this.height/2,this.angle,this.damage,this.range,this.projectileSpeed))
+            projectileArray.push(new Projectile(this.projectile,this.x+this.width,this.y + this.height/2,this.angle,this.damage,this.range,this.projectileSpeed))
             this.lastFireTime = currentTime;
         }
     }

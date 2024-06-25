@@ -20,6 +20,9 @@ export const maxOffsetY = 100;
 export const materialWidth = 20;
 export const materialHeight = 20;
 export const playerPickupRange = 50;
+export const crateHeight = 40;
+export const crateWidth = 40;
+export const crateDropChance = 0.04;
 
 export const pauseSet = new Set ();
 interface Screen {
@@ -111,6 +114,7 @@ crossbowSound.src = '/weapons/audio/crossbow.mp3'
 export const backgroundMusic = new Audio('/background/audio/compressedmusic.mp3');
 backgroundMusic.loop = true;
 
+//dropped resources
 const material1 = new Image();
 const material2 = new Image();
 const material3 = new Image();
@@ -122,11 +126,15 @@ material3.src = '/material/material3.png'
 export const materialPickup = new Audio();
 materialPickup.src = '/material/audio/material_pickup.mp3'
 
+export const materialChoices = [material1,material2,material3]
+
+export const crateImg = new Image();
+crateImg.src = '/material/crate.png'
+
 export const levelupSound = new Audio();
 levelupSound.src = '/character/audio/levelup.mp3'
 levelupSound.volume = 1;
 
-export const materialChoices = [material1,material2,material3]
 
 export const defaultImg = new Image();
 export const defaultAudio =  new Audio();

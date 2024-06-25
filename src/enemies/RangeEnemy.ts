@@ -21,7 +21,7 @@ export class RangeEnemy extends Enemy{
         super(x,y);
         this.image = rangeEnemyImg;
         this.projectile = enemyProjectileImg;
-        this.range = 200;
+        this.range = 400;
         this.damage = 3;
         this.fireRate = 2000;
         this.angle = 0;

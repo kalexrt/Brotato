@@ -1,7 +1,8 @@
-import { ctx,defaultImg } from "../constants";
+import { crateDropChance, ctx,defaultImg } from "../constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import { Cross } from "../interfaces/Cross";
 import { Material, materialArray } from "./Material";
+import { Crate, crateArray } from "./Crate";
 
 
 export const crosses:Cross[] = [];
@@ -57,7 +58,12 @@ export class Enemy {
     update(playerX: number, playerY: number, ctx: CanvasRenderingContext2D) {
         if (this.health <= 0) {
             //drop material if enemy dies
-            materialArray.push(new Material(this.x + this.width/2, this.y + this.height/2))
+            materialArray.push(new Material(this.x + this.width/2, this.y + this.height/2));
+
+            //chance to also drop crate
+            if (Math.random() < crateDropChance) {
+                crateArray.push(new Crate(this.x + this.width/2, this.y + this.height/2));
+            }
             
             // remove the enemy from the array if health is zero or less
             const index = enemyArray.indexOf(this);

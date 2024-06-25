@@ -9,5 +9,6 @@ export const global ={
     levelsGained: 0,
     shopActive: false,
     bossSpawned: false,
-    enemySpawnTimer: 1200
+    enemySpawnTimer: 1200,
+    win: false
 }

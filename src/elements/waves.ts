@@ -6,6 +6,11 @@ export function handleWaves(deltaTime:number){
     global.waveTimeRemaining -= deltaTime;
 
     if (global.waveTimeRemaining <= 0) {
+        if(global.wave >= 20){
+            global.gameOver = true; //win game
+            global.win = true;
+            return;
+        } 
         global.wave++; // increment wave number
         openShop();
         global.shopActive = true;

@@ -33,17 +33,17 @@ export function spawnEnemiesBasedOnWave() {
                 break;
         }
 
-        // Generate a random enemy from the available types for the current wave
+        // generate a random enemy from the available types for the current wave
         let enemyindex = getRandomInt(0, enemyTypes);
         generateEnemy(getRandomInt(0, canvas.width), getRandomInt(0, canvas.height), enemyindex);
 
         if (!global.bossSpawned && global.wave > 4) {
             setTimeout(()=>{
                 generateEnemy(getRandomInt(0, canvas.width), getRandomInt(0, canvas.height), 4);
-            },3000)
-            global.bossSpawned = true; // Ensure the boss only spawns once
+            },5000)
+            global.bossSpawned = true; // ensure the boss only spawns once
         }
 
-        global.enemySpawnTimer = 0; // Reset the timer
+        global.enemySpawnTimer = 0; // reset the timer
     }
 }

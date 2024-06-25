@@ -19,6 +19,7 @@ import { handleShop } from './elements/shop';
 import {player } from './ui/characterSelection';
 import { RangeEnemy } from './enemies/RangeEnemy';
 import { spawnEnemiesBasedOnWave } from './enemies/spawner';
+import { crateArray } from './entities/Crate';
 
 export let enemyProjectileArray:Projectile[] = [];
 export let projectileArray: Projectile[] = [];
@@ -73,6 +74,16 @@ export function gameLoop(timestamp:number) {
         }
     }
 
+    //render crates
+    for (let index = crateArray.length-1; index>=0; index--){
+        let crate = crateArray[index];
+        crate.draw();
+        if(isColliding(crate,player.pickupRange)){
+            global.levelsGained += 1;
+            crateArray.splice(index,1);
+        }
+    }
+
     //move and update player
     player.update(keys, ctx);
 
@@ -116,22 +127,21 @@ export function gameLoop(timestamp:number) {
     //remove elements that are out of weapon's range
     projectileArray = projectileArray.filter(projectile => !projectile.isOutOfRange());
 
-  //enemy projectile array
-for (let i = enemyProjectileArray.length - 1; i >= 0; i--) {
-    let projectile = enemyProjectileArray[i];
-    projectile.update();
-    projectile.draw(ctx);
-    if (isColliding(projectile, player)) {
-        invulnerability = 0;
-        global.hitEffect = true;
-        handleHitEffect(player, timestamp);
-        player.currHealth -= Math.max(0, projectile.damage - player.armor);
-        enemyProjectileArray.splice(i, 1); // remove the projectile from the array
-    } else if (projectile.isOutOfRange()) {
-        enemyProjectileArray.splice(i, 1); // remove the projectile if it's out of range
+    //enemy projectile array
+    for (let i = enemyProjectileArray.length - 1; i >= 0; i--) {
+        let projectile = enemyProjectileArray[i];
+        projectile.update();
+        projectile.draw(ctx);
+        if (isColliding(projectile, player)) {
+            invulnerability = 0; //reset invulnerability
+            global.hitEffect = true;
+            handleHitEffect(player, timestamp); //hit animation
+            player.currHealth -= Math.max(0, projectile.damage - player.armor);
+            enemyProjectileArray.splice(i, 1); // remove the projectile from the array
+        } else if (projectile.isOutOfRange()) {
+            enemyProjectileArray.splice(i, 1); // remove the projectile if it's out of range
+        }
     }
-}
-
     //for health bar
     drawHealthBar(ctx,player.currHealth,player.maxHealth);
     //for exp bar

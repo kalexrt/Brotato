@@ -7,7 +7,7 @@ export function mainmenu() {
         menuButtonClickSound.play();
         document.getElementById('mainMenu')!.style.display = 'none';
         document.getElementById('characterSelection')!.style.display = 'flex';
-        characterSelection();
+        characterSelection(); //click opens character selection
     });
     startButton.addEventListener('mouseover', ()=>{
         menuButtonFocusSound.play();

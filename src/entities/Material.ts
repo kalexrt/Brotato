@@ -25,20 +25,20 @@ export class Material{
     }
 
     update(deltaTime: number) {
-        // Check if player is near
+        // check if player is near
         const distance = Math.sqrt(
           (player.x - this.x) ** 2 + (player.y - this.y) ** 2
         );
         if (distance < playerPickupRange + 150) {
             this.collecting = true;
         }
-        // Animate towards player if collecting
+        // animate towards player if collecting
         if (this.collecting) {
             let dx = player.x - this.x;
             let dy = player.y - this.y;
             
             console.log(dx,dy)
-            // Normalize the movement to ensure consistent speed in all directions
+            // normalize the movement to ensure consistent speed in all directions
             const length = Math.sqrt(dx * dx + dy * dy);
             if (length > 0) {
                 dx = (dx / length) * 0.5 * deltaTime;
