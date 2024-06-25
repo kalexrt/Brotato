@@ -30,7 +30,7 @@ export class Player {
         this.y = canvas.height/2;
         this.level = 1;
         this.currExp = 0;
-        this.expNeeded = 10 + (this.level * 10);
+        this.expNeeded = 10 + ((this.level-1) * 5);
         this.currHealth = 10;
         this.maxHealth = 10;
         this.width = 40;
@@ -38,7 +38,7 @@ export class Player {
         this.speed = 4;
         this.moveAudio = walkSound;
         this.moveAudio.loop = true; //for continuosly playing walk sound
-        this.moveAudio.volume = 0.2;    //for low volume while walking
+        this.moveAudio.volume = 0.8;    //for low volume while walking
         this.attackSpeed = 0;
         this.damageIncrease = 1;
         this.armor = 0;
@@ -132,9 +132,6 @@ export class Player {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        // ctx.strokeStyle = 'red'; // set the color of the rectangle
-        // ctx.lineWidth = 2; // set the width of the rectangle border
-        // ctx.strokeRect(this.x, this.y, this.height, this.height); // draw the rectangle
         if(this.isFlipped) drawFlippedImage(ctx,this.image,this.x,this.y,this.height,this.height);
         else ctx.drawImage(this.image, this.x , this.y, this.height,this.height);
     }
@@ -143,7 +140,7 @@ export class Player {
         if(this.currHealth <= 0) global.gameOver = true;
         if(this.level != global.level) this.currExp = 0; //reset exp when lvl up
         this.level = global.level;  //lvl up set level
-        this.expNeeded = 10 + (this.level * 10) //update exp needed
+        this.expNeeded = 10 + ((this.level-1) * 5) //update exp needed
         this.move(keys);
         this.draw(ctx);
     }

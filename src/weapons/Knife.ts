@@ -10,8 +10,9 @@ export class Knife extends SmallWeapon{
         this.name = 'Knife';
         this.sound = defaultAudio;
         this.damage = (this.tier * 30) * player.damageIncrease;
-        this.fireRate = (700 - this.tier*50) - player.attackSpeed;
-        this.range = 150;
+        this.fireRate = (400 - this.tier*50) - player.attackSpeed;
+        this.range = 50;
         this.projectile = knifeImg;
+        this.projectileSpeed = 4;
     }
 }

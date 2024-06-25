@@ -50,9 +50,6 @@ export class Enemy {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        // ctx.strokeStyle = 'blue'; // set the color of the rectangle
-        // ctx.lineWidth = 2; // set the width of the rectangle border
-        // ctx.strokeRect(this.x, this.y, this.height, this.height); // draw the rectangle
         if(this.dx < 0) drawFlippedImage(ctx,this.image, this.x , this.y,this.height,this.height);
         else ctx.drawImage(this.image, this.x , this.y,this.height,this.height);
     }

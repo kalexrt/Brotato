@@ -62,9 +62,9 @@ export class RangeEnemy extends Enemy{
                 this.angle, 
                 this.damage, 
                 this.range,
+                2,
                 20,
-                20,
-                2
+                20
             ));
             this.lastFireTime = currentTime;
         }

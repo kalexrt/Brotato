@@ -1,5 +1,6 @@
 import { Carl } from "../characters/Carl";
 import { Golem } from "../characters/Golem";
+import { menuButtonClickSound, menuButtonFocusSound } from "../constants";
 import { Player } from "../entities/Player";
 import { startGame } from "../startgame";
 
@@ -38,10 +39,14 @@ export function characterSelection() {
 
         charElement.appendChild(charImage);
         charElement.addEventListener('click', () => {
+            menuButtonClickSound.play();
             selectedCharacter = character.instance;
             document.querySelectorAll('.character').forEach(el => el.classList.remove('selected'));
             charElement.classList.add('selected');
         });
+        charElement.addEventListener('mouseover', () => {
+            menuButtonFocusSound.play();
+        })
         characterContainer.appendChild(charElement);
     });
 
@@ -58,16 +63,21 @@ export function characterSelection() {
 
         weaponElement.appendChild(weaponImage);
         weaponElement.addEventListener('click', () => {
+            menuButtonClickSound.play();
             selectedWeapon = weapon.name;
             console.log(selectedWeapon);
             document.querySelectorAll('.weapon').forEach(el => el.classList.remove('selected'));
             weaponElement.classList.add('selected');
         });
+        weaponElement.addEventListener('mouseover', () => {
+            menuButtonFocusSound.play();
+        })
         weaponContainer.appendChild(weaponElement);
     });
     const confirmButton = document.getElementById('confirmSelectionButton') as HTMLButtonElement;
     confirmButton.addEventListener('click', () => {
         if (selectedCharacter && selectedWeapon) {
+            menuButtonClickSound.play();
             document.getElementById('characterSelection')!.style.display = 'none';
             document.getElementById('canvas')!.style.display = 'block';
             // if(selectedCharacter === 'Carl') player = new Carl();

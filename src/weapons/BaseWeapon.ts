@@ -1,4 +1,4 @@
-import { ctx, defaultAudio, defaultImg } from "../constants";
+import { bulletSpeed, ctx, defaultAudio, defaultImg } from "../constants";
 import Point from "../shape/Point";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import { Projectile } from "./Projectile";
@@ -25,6 +25,7 @@ export class BaseWeapon {
     sound: HTMLAudioElement;
     tier:number;
     projectile:HTMLImageElement;
+    projectileSpeed:number;
 
     constructor(weaponPositions: Point[]) {
         this.image = defaultImg;
@@ -43,6 +44,7 @@ export class BaseWeapon {
         this.sound = defaultAudio;
         this.tier = 1;
         this.projectile = defaultImg;
+        this.projectileSpeed = bulletSpeed;
 
         // increase and wrap around the position index
         BaseWeapon.currentPosition = (BaseWeapon.currentPosition + 1) % BaseWeapon.maxPositions;
@@ -102,7 +104,7 @@ export class BaseWeapon {
         if (this.targetEnemy && currentTime - this.lastFireTime >= this.fireRate) {
             this.sound.currentTime = 0;
             this.sound.play();
-            projectileArray.push(new Projectile(this.projectile,this.x+this.width,this.y+this.height/2,this.angle,this.damage,this.range))
+            projectileArray.push(new Projectile(this.projectile,this.x+this.width,this.y+this.height/2,this.angle,this.damage,this.range,this.projectileSpeed))
             this.lastFireTime = currentTime;
         }
     }

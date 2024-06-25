@@ -20,11 +20,13 @@ import { MaxHp } from "../shopitems/MaxHp";
 import { PercentDamage } from "../shopitems/PercentDamage";
 import { Speed } from "../shopitems/Speed";
 import { resetWave } from "./reset";
+import { KnifeShop } from "../shopitems/KnifeShop";
+import { ScrewdriverShop } from "../shopitems/Screwdriver";
 
 export function handleShop(){
     drawShop();
 }
-const shopItems = [new PistolShop(), new SmgShop(), new CrossbowShop(), new MinigunShop(), new ShotgunShop()];
+const shopItems = [new PistolShop(), new SmgShop(), new CrossbowShop(), new MinigunShop(), new ShotgunShop() , new KnifeShop(), new ScrewdriverShop()];
 const shopUpgrades = [new Armor(), new AttackSpeed, new HpRegen(), new MaxHp(), new PercentDamage(), new Speed()];
 let availableShopItems:ShopItem[] = [];
 

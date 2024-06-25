@@ -10,8 +10,9 @@ export class Screwdriver extends SmallWeapon{
         this.name = 'Screwdriver';
         this.sound = defaultAudio;
         this.damage = (this.tier * 36) * player.damageIncrease;
-        this.fireRate = (800 - this.tier*50) - player.attackSpeed;
-        this.range = 150;
+        this.fireRate = (500 - this.tier*50) - player.attackSpeed;
+        this.range = 50;
         this.projectile = screwdriverImg;
+        this.projectileSpeed = 4;
     }
 }

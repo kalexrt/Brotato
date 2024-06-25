@@ -85,10 +85,10 @@ export const bulletImg = new Image();
 bulletImg.src = '/projectile/bullet.png'
 
 export const knifeImg = new Image();
-knifeImg.src ='/weapon/knife.png'
+knifeImg.src ='/weapons/knife.png'
 
 export const screwdriverImg = new Image();
-screwdriverImg.src ='/weapon/screwdriver.png'
+screwdriverImg.src ='/weapons/screwdriver.png'
 
 export const pistolSound = new Audio();
 pistolSound.src = '/weapons/audio/pistol.mp3'
@@ -124,6 +124,7 @@ materialPickup.src = '/material/audio/material_pickup.mp3'
 
 export const levelupSound = new Audio();
 levelupSound.src = '/character/audio/levelup.mp3'
+levelupSound.volume = 1;
 
 export const materialChoices = [material1,material2,material3]
 
@@ -154,6 +155,10 @@ export const shopSmgImg = new Image();
 shopSmgImg.src = '/shop/smg_icon.png';
 export const shopSpeedImg = new Image();
 shopSpeedImg.src = '/shop/speed.png';
+export const shopKnifeImg = new Image();
+shopKnifeImg.src = '/shop/knife_icon.png';
+export const shopScrewdriverImg = new Image();
+shopScrewdriverImg.src ='/shop/screwdriver_icon.png'
 
 // menu
 

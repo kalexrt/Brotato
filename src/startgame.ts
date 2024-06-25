@@ -14,7 +14,8 @@ export function startGame() {
         player.currExp = 0; // Reset player experience
     } 
     global.gameOver = false;
-    global.waveTimeRemaining = 60 * 1000;
+    global.bossSpawned = false;
+    global.waveTimeRemaining = 10 * 1000;
     //reset player positions
     player.x = canvas.width/2;
     player.y = canvas.height/2; 

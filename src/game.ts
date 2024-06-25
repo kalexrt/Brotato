@@ -27,6 +27,8 @@ import { handleShop } from './elements/shop';
 // import {player } from './ui/characterSelection';
 import { Carl } from './characters/Carl';
 import { RangeEnemy } from './enemies/RangeEnemy';
+import { Knife } from './weapons/Knife';
+import { Screwdriver } from './weapons/Screwdriver';
 
 export let enemyProjectileArray:Projectile[] = [];
 export let projectileArray: Projectile[] = [];
@@ -36,18 +38,24 @@ export const weaponArray: BaseWeapon[] = [];
 let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
 
 export const player = new Carl();
+
 global.level = player.level;
 // let weapon1 = new Pistol(player.weaponPositions);
-// let weapon2 = new Smg(player.weaponPositions);
-// let weapon3 = new Minigun(player.weaponPositions);
+let weapon2 = new Smg(player.weaponPositions);
+let weapon3 = new Minigun(player.weaponPositions);
 // let weapon4 = new Shotgun(player.weaponPositions);
 // let weapon5 = new Crossbow(player.weaponPositions);
+let weapon6 = new Knife(player.weaponPositions);
+let weapon7 = new Screwdriver(player.weaponPositions);
 
 // weaponArray.push(weapon1);
-// weaponArray.push(weapon2);
-// weaponArray.push(weapon3);
+weaponArray.push(weapon2);
+weaponArray.push(weapon3);
 // weaponArray.push(weapon4);
 // weaponArray.push(weapon5);
+weaponArray.push(weapon6);
+weaponArray.push(weapon7);
+
 
 let invulnerability = 0; // invulnerability timer accumulator
 export let lastFrame = 0;
@@ -77,11 +85,8 @@ export function gameLoop(timestamp:number) {
     //update waves
     handleWaves(deltaTime);
     
-    // spawn enemy every 3 seconds
-    if (enemySpawnTimer >= 3000) {
-        generateEnemy( getRandomInt(0,canvas.width), getRandomInt(0,canvas.height),1);
-        enemySpawnTimer = 0; // Reset the timer
-    }
+    // spawn enemy depending on wave
+    spawnEnemiesBasedOnWave();
 
     ctx.clearRect(-global.offsetX, -global.offsetY, canvas.width, canvas.height);
     ctx.drawImage(background,0,0,SCREEN.width,SCREEN.height);
@@ -167,6 +172,7 @@ for (let i = enemyProjectileArray.length - 1; i >= 0; i--) {
     drawWaveInfo();
     //next frame
     requestAnimationFrame(gameLoop);
+    console.log(enemyArray);
 }
 
 
@@ -182,3 +188,49 @@ window.addEventListener('keydown', (e) => {
         startGame();
     }
 });
+
+function spawnEnemiesBasedOnWave() {
+    if (enemySpawnTimer >= 1200 - (global.wave * 175)) {
+        let enemyTypes;
+
+        switch(global.wave) {
+            case 1:
+                // Wave 1: Spawn only melee basic enemies
+                enemyTypes = 1;
+                break;
+            case 2:
+                // Wave 2: Spawn melee and ranged enemies
+                enemyTypes = 2;
+                break;
+            case 3:
+                // Wave 3: Spawn melee, ranged, and speedy enemies
+                enemyTypes = 3;
+                break;
+            case 4:
+                // Wave 4: Spawn melee, ranged, speedy, and big enemies
+                enemyTypes = 4;
+                break;
+            case 5:
+                // Wave 5: Spawn all types of enemies and boss (index 4)
+                enemyTypes = 4;
+                break;
+            default:
+                // For waves beyond 5, spawn a mix of all enemy types except boss
+                enemyTypes = 4;
+                break;
+        }
+
+        // Generate a random enemy from the available types for the current wave
+        let enemyindex = getRandomInt(0, enemyTypes);
+        generateEnemy(getRandomInt(0, canvas.width), getRandomInt(0, canvas.height), enemyindex);
+
+        if (!global.bossSpawned && global.wave > 4) {
+            setTimeout(()=>{
+                generateEnemy(getRandomInt(0, canvas.width), getRandomInt(0, canvas.height), 4);
+            },3000)
+            global.bossSpawned = true; // Ensure the boss only spawns once
+        }
+
+        enemySpawnTimer = 0; // Reset the timer
+    }
+}

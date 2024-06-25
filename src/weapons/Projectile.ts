@@ -20,9 +20,9 @@ export class Projectile {
         direction: number, 
         damage: number,
         range: number,
+        speed:number = bulletSpeed,
         width:number = bulletWidth, 
-        height:number = bulletHeight,
-        speed:number = bulletSpeed
+        height:number = bulletHeight
     ) {
         this.image = image;
         this.width = width;
