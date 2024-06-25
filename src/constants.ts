@@ -19,7 +19,7 @@ export const minOffsetY = -320;
 export const maxOffsetY = 100;
 export const materialWidth = 20;
 export const materialHeight = 20;
-export const playerPickupRange = 200;
+export const playerPickupRange = 50;
 
 export const pauseSet = new Set ();
 interface Screen {
