@@ -8,5 +8,6 @@ export const global ={
     offsetY: 0,
     levelsGained: 0,
     shopActive: false,
-    bossSpawned: false
+    bossSpawned: false,
+    enemySpawnTimer: 1200
 }

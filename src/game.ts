@@ -14,49 +14,18 @@ import { BaseWeapon } from './weapons/BaseWeapon';
 import { Projectile } from './weapons/Projectile';
 import { addToDamageTextArray, updateDrawDamageText } from './ui/enemydamagetext';
 import { materialArray } from './entities/Material';
-import { Pistol } from './weapons/Pistol';
-import { Smg } from './weapons/Smg';
-import { Minigun } from './weapons/Minigun';
-import { Shotgun } from './weapons/Shotgun';
 import { updateDrawExpBar } from './ui/expbar';
-import { Crossbow } from './weapons/Crossbow';
 import { drawWaveInfo, handleWaves } from './elements/waves';
 import { handleHitEffect } from './elements/hiteffect';
 import { pauseSet } from './constants';
 import { handleShop } from './elements/shop';
-// import {player } from './ui/characterSelection';
-import { Carl } from './characters/Carl';
+import {player } from './ui/characterSelection';
 import { RangeEnemy } from './enemies/RangeEnemy';
-import { Knife } from './weapons/Knife';
-import { Screwdriver } from './weapons/Screwdriver';
 
 export let enemyProjectileArray:Projectile[] = [];
 export let projectileArray: Projectile[] = [];
 
 export const weaponArray: BaseWeapon[] = [];
-
-let enemySpawnTimer = 3000; // Accumulator for enemy spawn timing
-
-export const player = new Carl();
-
-global.level = player.level;
-// let weapon1 = new Pistol(player.weaponPositions);
-let weapon2 = new Smg(player.weaponPositions);
-let weapon3 = new Minigun(player.weaponPositions);
-// let weapon4 = new Shotgun(player.weaponPositions);
-// let weapon5 = new Crossbow(player.weaponPositions);
-let weapon6 = new Knife(player.weaponPositions);
-let weapon7 = new Screwdriver(player.weaponPositions);
-
-// weaponArray.push(weapon1);
-weaponArray.push(weapon2);
-weaponArray.push(weapon3);
-// weaponArray.push(weapon4);
-// weaponArray.push(weapon5);
-weaponArray.push(weapon6);
-weaponArray.push(weapon7);
-
-
 let invulnerability = 0; // invulnerability timer accumulator
 export let lastFrame = 0;
 
@@ -79,7 +48,7 @@ export function gameLoop(timestamp:number) {
     const deltaTime = Math.min(200,timestamp - lastFrame); //calculate time difference between last frame and current frame
     lastFrame = timestamp;
     //count invulnerability and enemyspawn time
-    enemySpawnTimer += deltaTime;
+    global.enemySpawnTimer += deltaTime;
     invulnerability += deltaTime;
 
     //update waves
@@ -172,7 +141,6 @@ for (let i = enemyProjectileArray.length - 1; i >= 0; i--) {
     drawWaveInfo();
     //next frame
     requestAnimationFrame(gameLoop);
-    console.log(enemyArray);
 }
 
 
@@ -190,7 +158,7 @@ window.addEventListener('keydown', (e) => {
 });
 
 function spawnEnemiesBasedOnWave() {
-    if (enemySpawnTimer >= 1200 - (global.wave * 175)) {
+    if (global.enemySpawnTimer >= 1200 - (global.wave * 175)) {
         let enemyTypes;
 
         switch(global.wave) {
@@ -231,6 +199,6 @@ function spawnEnemiesBasedOnWave() {
             global.bossSpawned = true; // Ensure the boss only spawns once
         }
 
-        enemySpawnTimer = 0; // Reset the timer
+        global.enemySpawnTimer = 0; // Reset the timer
     }
 }

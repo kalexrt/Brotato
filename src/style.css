@@ -10,6 +10,7 @@
 }
 
 body{
+    color: white;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -71,6 +72,14 @@ body{
     background-color: white;
     color: black;
 }
+
+#characters, #weapons{
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin: 30px 30px;
+}
+
 
 #canvas {
     border: 2px solid black;

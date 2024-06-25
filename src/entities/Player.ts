@@ -13,6 +13,8 @@ export class Player {
     expNeeded:number;
     currHealth:number;
     maxHealth:number;
+    hpRegen:number;
+    lastRegen:number;
     armor:number;
     attackSpeed:number;
     damageIncrease:number;
@@ -30,9 +32,11 @@ export class Player {
         this.y = canvas.height/2;
         this.level = 1;
         this.currExp = 0;
-        this.expNeeded = 10 + ((this.level-1) * 5);
+        this.expNeeded = 5 + ((this.level-1) * 5);
         this.currHealth = 10;
         this.maxHealth = 10;
+        this.hpRegen = 0;
+        this.lastRegen = 0;
         this.width = 40;
         this.height = 40;
         this.speed = 4;
@@ -140,7 +144,16 @@ export class Player {
         if(this.currHealth <= 0) global.gameOver = true;
         if(this.level != global.level) this.currExp = 0; //reset exp when lvl up
         this.level = global.level;  //lvl up set level
-        this.expNeeded = 10 + ((this.level-1) * 5) //update exp needed
+        this.expNeeded = 5 + ((this.level-1) * 5) //update exp needed
+
+        const now = Date.now(); // Get the current timestamp
+
+        // check if hp regeneration is needed and if 5 seconds have passed since the last regen
+        if (this.currHealth < this.maxHealth && (!this.lastRegen || now - this.lastRegen >= 5000)) {
+            this.currHealth = Math.min(this.currHealth + this.hpRegen, this.maxHealth); // regen health
+            this.lastRegen = now; // update the last regeneration timestamp
+        }
+
         this.move(keys);
         this.draw(ctx);
     }

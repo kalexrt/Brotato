@@ -1,7 +1,8 @@
-import { enemyProjectileArray, player } from "../game";
+import { enemyProjectileArray } from "../game";
 import { projectileArray } from "../game";
 import { materialArray } from "../entities/Material";
 import { enemyArray } from "../entities/Enemy";
+import { player } from "../ui/characterSelection";
 
 export function resetWave(){
     player.currHealth = player.maxHealth; // reset player health

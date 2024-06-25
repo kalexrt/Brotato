@@ -1,7 +1,7 @@
 import { ctx,canvas, menuButtonFocusSound, menuButtonClickSound } from "../constants";
 import { global } from "../global";
 import { weaponArray } from "../game";
-import { player } from "../game";
+import { player } from "../ui/characterSelection";
 import { Pistol } from "../weapons/Pistol";
 import { Smg } from "../weapons/Smg";
 import { Minigun } from "../weapons/Minigun";
@@ -176,6 +176,7 @@ export function handleShopSelection(selection:number) {
                 player.speed += 1;
                 break;
             case 'Hp Regeneration':
+                player.hpRegen += 1;
                 break;
         }
     }

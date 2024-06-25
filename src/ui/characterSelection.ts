@@ -2,13 +2,21 @@ import { Carl } from "../characters/Carl";
 import { Golem } from "../characters/Golem";
 import { menuButtonClickSound, menuButtonFocusSound } from "../constants";
 import { Player } from "../entities/Player";
+import { weaponArray } from "../game";
 import { startGame } from "../startgame";
+import { Crossbow } from "../weapons/Crossbow";
+import { Knife } from "../weapons/Knife";
+import { Minigun } from "../weapons/Minigun";
+import { Pistol } from "../weapons/Pistol";
+import { Screwdriver } from "../weapons/Screwdriver";
+import { Shotgun } from "../weapons/Shotgun";
+import { Smg } from "../weapons/Smg";
 
 
 let selectedCharacter: Player | null = null;
 let selectedWeapon: string | null = null;
 
-// let player = new Carl();
+export let player = new Carl();
 
 export function characterSelection() {
     const characters = [
@@ -20,7 +28,9 @@ export function characterSelection() {
         { name: "Pistol", src:'/shop/pistol_icon.png' },
         { name: "Minigun", src:'/shop/minigun_icon.png' },
         { name: "Crossbow", src:'/shop/crossbow_icon.png' },
-        { name: "Shotgun", src:'/shop/shotgun_icon.png' }
+        { name: "Shotgun", src:'/shop/shotgun_icon.png' },
+        { name: "Knife", src:'/shop/knife_icon.png'},
+        { name: "Screwdriver", src:'/shop/screwdriver_icon.png'}
     ];
 
     const characterContainer = document.getElementById('characters')!;
@@ -65,7 +75,6 @@ export function characterSelection() {
         weaponElement.addEventListener('click', () => {
             menuButtonClickSound.play();
             selectedWeapon = weapon.name;
-            console.log(selectedWeapon);
             document.querySelectorAll('.weapon').forEach(el => el.classList.remove('selected'));
             weaponElement.classList.add('selected');
         });
@@ -80,14 +89,49 @@ export function characterSelection() {
             menuButtonClickSound.play();
             document.getElementById('characterSelection')!.style.display = 'none';
             document.getElementById('canvas')!.style.display = 'block';
-            // if(selectedCharacter === 'Carl') player = new Carl();
-            // else player = new Golem();
-            // player = selectedCharacter;
-
+            player = selectedCharacter;
+            addWeapon(selectedWeapon);
             startGame(); 
  
         } else {
             alert("Please select both a character and a weapon.");
         }
     });
+}
+
+function addWeapon(name:string){
+    switch(name){
+        case 'Pistol':
+            let weapon0 = new Pistol(player.weaponPositions);
+            weaponArray.push(weapon0);
+            break;
+
+        case 'Shotgun':
+            let weapon1 = new Shotgun(player.weaponPositions);
+            weaponArray.push(weapon1);
+            break;
+
+        case 'Smg':
+            let weapon2 = new Smg(player.weaponPositions);
+            weaponArray.push(weapon2);
+            break;
+
+        case 'Crossbow':
+            let weapon3 = new Crossbow(player.weaponPositions);
+            weaponArray.push(weapon3);
+            break;
+
+        case 'Minigun':
+            let weapon4 = new Minigun(player.weaponPositions);
+            weaponArray.push(weapon4);
+            break;
+        case 'Screwdriver':
+            let weapon5 = new Screwdriver(player.weaponPositions);
+            weaponArray.push(weapon5);
+            break;
+        case 'Knife':
+            let weapon6 = new Knife(player.weaponPositions);
+            weaponArray.push(weapon6);
+            break;
+    }
 }

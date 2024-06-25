@@ -6,10 +6,10 @@ export function handleWaves(deltaTime:number){
     global.waveTimeRemaining -= deltaTime;
 
     if (global.waveTimeRemaining <= 0) {
-        global.wave++; // Increment wave number
+        global.wave++; // increment wave number
         openShop();
         global.shopActive = true;
-        global.waveTimeRemaining = 10 * 1000; // Reset wave timer to 60 seconds
+        global.waveTimeRemaining = 60 * 1000; // reset wave timer to 60 seconds
     }
 }
 
