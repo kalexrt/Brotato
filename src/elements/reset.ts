@@ -1,5 +1,5 @@
-import { enemyProjectileArray } from "../game";
-import { projectileArray } from "../game";
+import { enemyProjectileArray } from "../game/game";
+import { projectileArray } from "../game/game";
 import { materialArray } from "../entities/Material";
 import { enemyArray } from "../entities/Enemy";
 import { player } from "../ui/characterSelection";

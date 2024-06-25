@@ -1,4 +1,4 @@
-import { global } from "../global";
+import { global } from "../globals/global";
 import { MeleeEnemy } from "../enemies/MeleeEnemy";
 import { RangeEnemy } from "../enemies/RangeEnemy";
 import { SpeedyEnemy } from "../enemies/SpeedyEnemy";

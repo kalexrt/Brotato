@@ -1,5 +1,5 @@
-import { ctx, backgroundMusic, canvas, walkSound } from "./constants";
-import { global } from "./global";
+import { ctx, backgroundMusic, canvas, walkSound } from "../globals/constants";
+import { global } from "../globals/global";
 export function handleGameOver() {
     walkSound.pause();
     backgroundMusic.pause(); // Pause background music

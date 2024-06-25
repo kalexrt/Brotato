@@ -1,5 +1,5 @@
-import { global } from "../global";
-import { ctx, hitImg, hitSound } from "../constants";
+import { global } from "../globals/global";
+import { ctx, hitImg, hitSound } from "../globals/constants";
 import { Player } from "../entities/Player";
 import { Enemy } from "../entities/Enemy";
 

@@ -1,4 +1,4 @@
-import { shopHpRegenImg } from "../constants";
+import { shopHpRegenImg } from "../globals/constants";
 import { ShopItem } from "./ShopItem";
 
 export class HpRegen extends ShopItem{

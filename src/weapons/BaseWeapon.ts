@@ -1,8 +1,8 @@
-import { bulletSpeed, ctx, defaultAudio, defaultImg } from "../constants";
+import { bulletSpeed, ctx, defaultAudio, defaultImg } from "../globals/constants";
 import Point from "../shape/Point";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import { Projectile } from "./Projectile";
-import { projectileArray } from "../game";
+import { projectileArray } from "../game/game";
 
 
 export class BaseWeapon {

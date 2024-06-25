@@ -1,4 +1,4 @@
-import { carlImg } from "../constants";
+import { carlImg } from "../globals/constants";
 import { Player } from "../entities/Player";
 
 export class Carl extends Player{

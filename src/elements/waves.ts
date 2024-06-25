@@ -1,5 +1,5 @@
-import { global } from "../global";
-import { ctx, canvas } from "../constants";
+import { global } from "../globals/global";
+import { ctx, canvas } from "../globals/constants";
 import { openShop } from "./shop";
 
 export function handleWaves(deltaTime:number){

@@ -1,4 +1,4 @@
-import { crossbowImg, crossbowSound } from "../constants";
+import { crossbowImg, crossbowSound } from "../globals/constants";
 // import { player } from "../game";
 import { player } from "../ui/characterSelection";
 import Point from "../shape/Point";

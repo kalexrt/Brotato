@@ -1,8 +1,8 @@
-import { SCREEN, canvas, ctx, defaultImg, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../constants";
+import { SCREEN, canvas, ctx, defaultImg, maxOffsetX, maxOffsetY, minOffsetX, minOffsetY, playerPickupRange, walkSound, weaponOffset } from "../globals/constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import Point from "../shape/Point";
 import { PickupRange } from "../interfaces/PickupRange";
-import { global } from "../global";
+import { global } from "../globals/global";
 
 export class Player {
     image: HTMLImageElement;

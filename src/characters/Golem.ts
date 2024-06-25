@@ -1,4 +1,4 @@
-import { golemImg } from "../constants";
+import { golemImg } from "../globals/constants";
 import { Player } from "../entities/Player";
 
 export class Golem extends Player{

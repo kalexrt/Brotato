@@ -1,4 +1,4 @@
-import { shopAtckSpeedImg } from "../constants";
+import { shopAtckSpeedImg } from "../globals/constants";
 import { ShopItem } from "./ShopItem";
 
 export class AttackSpeed extends ShopItem{

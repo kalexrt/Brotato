@@ -1,4 +1,4 @@
-import { menuButtonClickSound, menuButtonFocusSound, menuMusic } from "../constants";
+import { menuButtonClickSound, menuButtonFocusSound, menuMusic } from "../globals/constants";
 import { characterSelection } from "./characterSelection";
 
 export function mainmenu() {

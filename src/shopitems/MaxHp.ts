@@ -1,4 +1,4 @@
-import { shopHpImg } from "../constants";
+import { shopHpImg } from "../globals/constants";
 import { ShopItem } from "./ShopItem";
 
 export class MaxHp extends ShopItem{

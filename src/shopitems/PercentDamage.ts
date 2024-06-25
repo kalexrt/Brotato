@@ -1,4 +1,4 @@
-import { shopPctDamageImg } from "../constants";
+import { shopPctDamageImg } from "../globals/constants";
 import { ShopItem } from "./ShopItem";
 
 export class PercentDamage extends ShopItem{

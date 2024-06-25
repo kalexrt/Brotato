@@ -1,4 +1,4 @@
-import { shopSpeedImg } from "../constants";
+import { shopSpeedImg } from "../globals/constants";
 import { ShopItem } from "./ShopItem";
 
 export class Speed extends ShopItem{

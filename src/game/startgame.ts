@@ -1,9 +1,8 @@
-import { global } from "./global";
-import { player } from "./ui/characterSelection";
-// import { player } from "./game";
+import { global } from "../globals/global";
+import { player } from "../ui/characterSelection";
 import { gameLoop } from "./game";
-import { backgroundMusic, canvas } from "./constants";
-import { resetWave } from "./elements/reset";
+import { backgroundMusic, canvas } from "../globals/constants";
+import { resetWave } from "../elements/reset";
 
 export function startGame() {
     global.level = player.level;

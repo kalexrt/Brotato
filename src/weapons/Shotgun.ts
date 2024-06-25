@@ -1,4 +1,4 @@
-import { bulletImg, shotgunImg, shotgunSound } from "../constants";
+import { bulletImg, shotgunImg, shotgunSound } from "../globals/constants";
 import Point from "../shape/Point";
 import { MediumWeapon } from "./MediumWeapon";
 // import { player } from "../game";

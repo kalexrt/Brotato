@@ -1,5 +1,5 @@
 import { Enemy } from "../entities/Enemy";
-import { bigEnemyImg } from "../constants";
+import { bigEnemyImg } from "../globals/constants";
 
 export class BigeEnemy extends Enemy{
     constructor(x:number,y:number){

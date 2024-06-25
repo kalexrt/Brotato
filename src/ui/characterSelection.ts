@@ -1,9 +1,9 @@
 import { Carl } from "../characters/Carl";
 import { Golem } from "../characters/Golem";
-import { menuButtonClickSound, menuButtonFocusSound, menuMusic } from "../constants";
+import { menuButtonClickSound, menuButtonFocusSound, menuMusic } from "../globals/constants";
 import { Player } from "../entities/Player";
-import { weaponArray } from "../game";
-import { startGame } from "../startgame";
+import { weaponArray } from "../game/game";
+import { startGame } from "../game/startgame";
 import { Crossbow } from "../weapons/Crossbow";
 import { Knife } from "../weapons/Knife";
 import { Minigun } from "../weapons/Minigun";

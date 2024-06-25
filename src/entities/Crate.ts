@@ -1,4 +1,4 @@
-import { crateHeight, crateImg, crateWidth, ctx } from "../constants";
+import { crateHeight, crateImg, crateWidth, ctx } from "../globals/constants";
 
 export const crateArray:Crate[] = [];
 

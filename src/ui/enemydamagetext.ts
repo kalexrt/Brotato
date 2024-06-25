@@ -1,4 +1,4 @@
-import { ctx } from "../constants";
+import { ctx } from "../globals/constants";
 
 interface DamageText {
     x: number;

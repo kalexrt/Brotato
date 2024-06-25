@@ -1,4 +1,4 @@
-import { bulletImg, minigunImg, minigunSound } from "../constants";
+import { bulletImg, minigunImg, minigunSound } from "../globals/constants";
 // import { player } from "../game";
 import { player } from "../ui/characterSelection";
 import Point from "../shape/Point";

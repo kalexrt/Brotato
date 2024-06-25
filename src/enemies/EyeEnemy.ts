@@ -1,4 +1,4 @@
-import { eyeEnemyImg } from "../constants";
+import { eyeEnemyImg } from "../globals/constants";
 import { Enemy } from "../entities/Enemy";
 
 export class EyeEnemy extends Enemy{

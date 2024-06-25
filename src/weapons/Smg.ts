@@ -1,6 +1,6 @@
 import { SmallWeapon } from "./SmallWeapon";
 import Point from "../shape/Point";
-import { bulletImg, smgImg, smgSound } from "../constants";
+import { bulletImg, smgImg, smgSound } from "../globals/constants";
 // import { player } from "../game";
 import { player } from "../ui/characterSelection";
 

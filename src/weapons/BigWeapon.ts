@@ -1,4 +1,4 @@
-import { bigWeaponHeight, bigWeaponWidth } from "../constants";
+import { bigWeaponHeight, bigWeaponWidth } from "../globals/constants";
 import { BaseWeapon } from "./BaseWeapon";
 import Point from "../shape/Point";
 

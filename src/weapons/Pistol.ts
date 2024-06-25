@@ -1,4 +1,4 @@
-import { bulletImg, pistolImg, pistolSound } from "../constants";
+import { bulletImg, pistolImg, pistolSound } from "../globals/constants";
 import { SmallWeapon } from "./SmallWeapon";
 // import { player } from "../game";
 import { player } from "../ui/characterSelection";

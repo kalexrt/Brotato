@@ -1,4 +1,4 @@
-import { defaultImg,ctx } from "../constants";
+import { defaultImg,ctx } from "../globals/constants";
 
 export class ShopItem {
     image: HTMLImageElement;

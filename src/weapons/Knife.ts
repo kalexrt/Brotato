@@ -2,7 +2,7 @@ import { SmallWeapon } from "./SmallWeapon";
 // import { player } from "../game";
 import { player } from "../ui/characterSelection";
 import Point from "../shape/Point";
-import { defaultAudio, knifeImg } from "../constants";
+import { defaultAudio, knifeImg } from "../globals/constants";
 
 export class Knife extends SmallWeapon{
     constructor(weaponPositions: Point[]) {

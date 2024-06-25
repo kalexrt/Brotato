@@ -1,5 +1,5 @@
-import { ctx,canvas } from "../constants";
-import { global } from "../global";
+import { ctx,canvas } from "../globals/constants";
+import { global } from "../globals/global";
 export function drawPaused() {
     ctx.font = 'bold 120px "Anybody"';
     ctx.fillStyle = 'white';

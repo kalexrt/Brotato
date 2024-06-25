@@ -1,4 +1,4 @@
-import { mouthEnemyImg } from "../constants";
+import { mouthEnemyImg } from "../globals/constants";
 import { Enemy } from "../entities/Enemy";
 
 export class MouthEnemy extends Enemy{

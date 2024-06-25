@@ -1,4 +1,4 @@
-import { bulletHeight, bulletSpeed, bulletWidth } from "../constants";
+import { bulletHeight, bulletSpeed, bulletWidth } from "../globals/constants";
 
 export class Projectile {
     image:HTMLImageElement;

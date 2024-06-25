@@ -1,4 +1,4 @@
-import { global } from "../global";
+import { global } from "../globals/global";
 export function drawHealthBar(ctx: CanvasRenderingContext2D, currHealth: number, maxHealth: number) {
     const barWidth = 200;
     const barHeight = 20;

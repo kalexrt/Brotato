@@ -1,4 +1,4 @@
-import { crateDropChance, ctx,defaultImg } from "../constants";
+import { crateDropChance, ctx,defaultImg } from "../globals/constants";
 import { drawFlippedImage } from "../utils/ImgFlip";
 import { Cross } from "../interfaces/Cross";
 import { Material, materialArray } from "./Material";

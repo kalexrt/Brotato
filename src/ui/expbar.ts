@@ -1,5 +1,5 @@
-import { levelupSound } from "../constants";
-import { global } from "../global";
+import { levelupSound } from "../globals/constants";
+import { global } from "../globals/global";
 
 function drawExpBar(ctx: CanvasRenderingContext2D, currExp: number, expNeeded: number) {
     const barWidth = 200;

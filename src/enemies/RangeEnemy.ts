@@ -1,12 +1,12 @@
 import { Enemy } from "../entities/Enemy";
-import { rangeEnemyImg, enemyProjectileImg } from "../constants";
+import { rangeEnemyImg, enemyProjectileImg } from "../globals/constants";
 import { Player } from "../entities/Player";
 // import { player } from "../game";
 import { player } from "../ui/characterSelection";
 import { Projectile } from "../weapons/Projectile";
 import { Material, materialArray } from "../entities/Material";
 import { enemyArray } from "../entities/Enemy";
-import { enemyProjectileArray } from "../game";
+import { enemyProjectileArray } from "../game/game";
 
 
 export class RangeEnemy extends Enemy{

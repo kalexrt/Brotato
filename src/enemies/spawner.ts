@@ -1,6 +1,6 @@
-import { global } from "../global";
+import { global } from "../globals/global";
 import { generateEnemy } from "../elements/generateEnemy";
-import { canvas } from "../constants";
+import { canvas } from "../globals/constants";
 import { getRandomInt } from "../utils/common";
 
 export function spawnEnemiesBasedOnWave() {

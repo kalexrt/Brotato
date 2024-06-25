@@ -1,4 +1,4 @@
-import { crossImage, ctx } from "../constants";
+import { crossImage, ctx } from "../globals/constants";
 import { crosses } from "../entities/Enemy";
 
 

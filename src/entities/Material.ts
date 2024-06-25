@@ -1,4 +1,4 @@
-import { ctx, materialChoices, materialHeight, materialWidth, playerPickupRange } from "../constants";
+import { ctx, materialChoices, materialHeight, materialWidth, playerPickupRange } from "../globals/constants";
 import { player } from "../ui/characterSelection";
 import { getRandomInt } from "../utils/common";
 

@@ -1,4 +1,4 @@
-import { shopMinigunImg } from "../constants";
+import { shopMinigunImg } from "../globals/constants";
 import { ShopItem } from "./ShopItem";
 
 export class MinigunShop extends ShopItem{

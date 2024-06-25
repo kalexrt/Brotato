@@ -1,6 +1,6 @@
-import { ctx,canvas, menuButtonFocusSound, menuButtonClickSound, shopSound } from "../constants";
-import { global } from "../global";
-import { weaponArray } from "../game";
+import { ctx,canvas, menuButtonFocusSound, menuButtonClickSound, shopSound } from "../globals/constants";
+import { global } from "../globals/global";
+import { weaponArray } from "../game/game";
 import { player } from "../ui/characterSelection";
 import { Pistol } from "../weapons/Pistol";
 import { Smg } from "../weapons/Smg";
