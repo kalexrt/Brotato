@@ -1,6 +1,6 @@
 export const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 export const ctx = canvas.getContext('2d')!;
-
+//constants
 export const CANVAS_WIDTH = 1000;
 export const CANVAS_HEIGHT = 563;
 export const weaponWidth = 32;
@@ -33,22 +33,32 @@ export const SCREEN: Screen = {
     width: 1280,
     height: 720
 };
+//default empty values
+export const defaultImg = new Image();
+export const defaultAudio =  new Audio();
 
+//hiteffect
 export const hitImg = new Image();
 hitImg.src ='/hit_effect/hit-effect.png'
-
 export const hitSound = new Audio();
 hitSound.src ='/hit_effect/audio/damage.mp3'
 
+//background
 export const background =  new Image();
 background.src = '/background/large_map_image.png';
+export const backgroundMusic = new Audio('/background/audio/compressedmusic.mp3');
+backgroundMusic.loop = true;
 
 //characters
 export const carlImg = new Image();
 carlImg.src = '/character/Carl.png';
-
 export const golemImg = new Image();
 golemImg.src ='/character/Golem.png';
+export const walkSound = new Audio();
+walkSound.src = '/character/audio/walk.mp3';
+export const levelupSound = new Audio();
+levelupSound.src = '/character/audio/levelup.mp3';
+levelupSound.volume = 0.9;
 
 //enemy
 export const meleeEnemyImg = new Image();
@@ -71,60 +81,42 @@ bossEnemyImg.src = '/enemies/boss.png';
 export const enemyProjectileImg = new Image();
 enemyProjectileImg.src ='/projectile/bullet_enemy.png'
 
+//enemy spawn effect
 export const crossImage = new Image();
 crossImage.src = '/spawn_effect/crosssprite.png'
 
 //weapons
 export const pistolImg = new Image();
 pistolImg.src = '/weapons/pistol.png';
-
 export const smgImg = new Image();
 smgImg.src = '/weapons/smg.png'
-
 export const minigunImg = new Image();
 minigunImg.src = '/weapons/minigun.png'
-
 export const shotgunImg = new Image();
 shotgunImg.src = '/weapons/shotgun.png'
-
 export const crossbowImg = new Image();
 crossbowImg.src = '/weapons/crossbow.png'
-
 export const bulletImg = new Image();
 bulletImg.src = '/projectile/bullet.png'
-
 export const knifeImg = new Image();
 knifeImg.src ='/weapons/knife.png'
-
 export const screwdriverImg = new Image();
 screwdriverImg.src ='/weapons/screwdriver.png'
-
 export const pistolSound = new Audio();
 pistolSound.src = '/weapons/audio/pistol.mp3'
-
 export const smgSound = new Audio();
 smgSound.src = '/weapons/audio/smg.mp3'
-
 export const minigunSound = new Audio();
 minigunSound.src = '/weapons/audio/minigun.mp3'
-
-export const walkSound = new Audio();
-walkSound.src = '/character/audio/walk.mp3'
-
 export const shotgunSound = new Audio();
 shotgunSound.src = '/weapons/audio/shotgun.mp3'
-
 export const crossbowSound = new Audio();
 crossbowSound.src = '/weapons/audio/crossbow.mp3'
-
-export const backgroundMusic = new Audio('/background/audio/compressedmusic.mp3');
-backgroundMusic.loop = true;
 
 //dropped resources
 const material1 = new Image();
 const material2 = new Image();
 const material3 = new Image();
-
 material1.src = '/material/material1.png'
 material2.src = '/material/material2.png'
 material3.src = '/material/material3.png'
@@ -137,16 +129,10 @@ export const materialChoices = [material1,material2,material3]
 export const crateImg = new Image();
 crateImg.src = '/material/crate.png'
 
-export const levelupSound = new Audio();
-levelupSound.src = '/character/audio/levelup.mp3'
-levelupSound.volume = 1;
-
-
-export const defaultImg = new Image();
-export const defaultAudio =  new Audio();
-
 //shop
-
+export const shopSound = new Audio();
+shopSound.src ='/shop/audio/shop.mp3';
+shopSound.volume = 0.8;
 export const shopArmorImg = new Image();
 shopArmorImg.src = '/shop/armor.png';
 export const shopAtckSpeedImg = new Image();
@@ -175,12 +161,11 @@ export const shopScrewdriverImg = new Image();
 shopScrewdriverImg.src ='/shop/screwdriver_icon.png'
 
 // menu
-
 export const menuButtonFocusSound = new Audio();
 menuButtonFocusSound.src = '/menu/audio/menubuttonfocus.mp3'
-
 export const menuButtonClickSound = new Audio();
 menuButtonClickSound.src = '/menu/audio/menubuttonclick.mp3'
-
 export const menuBackground = new Image();
 menuBackground.src ='/menu/mainmenubg.png'
+export const menuMusic = new Audio();
+menuMusic.src ='/menu/audio/mainmenumusic.mp3'

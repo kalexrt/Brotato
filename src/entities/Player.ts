@@ -42,7 +42,7 @@ export class Player {
         this.speed = 4;
         this.moveAudio = walkSound;
         this.moveAudio.loop = true; //for continuosly playing walk sound
-        this.moveAudio.volume = 0.8;    //for low volume while walking
+        this.moveAudio.volume = 0.5;    //for low volume while walking
         this.attackSpeed = 0;
         this.damageIncrease = 1;
         this.armor = 0;

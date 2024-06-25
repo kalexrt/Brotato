@@ -1,7 +1,8 @@
-import { menuButtonClickSound, menuButtonFocusSound } from "../constants";
+import { menuButtonClickSound, menuButtonFocusSound, menuMusic } from "../constants";
 import { characterSelection } from "./characterSelection";
 
 export function mainmenu() {
+    menuMusic.play();
     const startButton: HTMLButtonElement = document.getElementById('startButton') as HTMLButtonElement;
     startButton.addEventListener('click', () => {
         menuButtonClickSound.play();

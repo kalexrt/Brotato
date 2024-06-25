@@ -1,6 +1,6 @@
 import { Carl } from "../characters/Carl";
 import { Golem } from "../characters/Golem";
-import { menuButtonClickSound, menuButtonFocusSound } from "../constants";
+import { menuButtonClickSound, menuButtonFocusSound, menuMusic } from "../constants";
 import { Player } from "../entities/Player";
 import { weaponArray } from "../game";
 import { startGame } from "../startgame";
@@ -19,6 +19,7 @@ let selectedWeapon: string | null = null;
 export let player = new Carl();
 
 export function characterSelection() {
+    menuMusic.play();
     const characters = [
         { name: "Carl" ,instance: new Carl(), src:'/character/Carl.png'},
         { name: "Golem", instance: new Golem(), src:'/character/Golem.png' }
@@ -55,6 +56,7 @@ export function characterSelection() {
             charElement.classList.add('selected');
         });
         charElement.addEventListener('mouseover', () => {
+            charElement.style.cursor ='pointer';
             menuButtonFocusSound.play();
         })
         characterContainer.appendChild(charElement);
@@ -79,6 +81,7 @@ export function characterSelection() {
             weaponElement.classList.add('selected');
         });
         weaponElement.addEventListener('mouseover', () => {
+            weaponElement.style.cursor ='pointer';
             menuButtonFocusSound.play();
         })
         weaponContainer.appendChild(weaponElement);
@@ -91,6 +94,7 @@ export function characterSelection() {
             document.getElementById('canvas')!.style.display = 'block';
             player = selectedCharacter;
             addWeapon(selectedWeapon);
+            menuMusic.pause();
             startGame(); 
  
         } else {

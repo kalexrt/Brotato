@@ -1,4 +1,4 @@
-import { ctx,canvas, menuButtonFocusSound, menuButtonClickSound } from "../constants";
+import { ctx,canvas, menuButtonFocusSound, menuButtonClickSound, shopSound } from "../constants";
 import { global } from "../global";
 import { weaponArray } from "../game";
 import { player } from "../ui/characterSelection";
@@ -33,6 +33,7 @@ const shopUpgrades = [new Armor(), new AttackSpeed, new HpRegen(), new MaxHp(), 
 let availableShopItems:ShopItem[] = [];
 
 export function openShop() {
+    shopSound.play();
     // randomly select items and upgrades
     availableShopItems = [];
 
