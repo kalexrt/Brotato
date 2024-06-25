@@ -84,6 +84,12 @@ crossbowImg.src = '/weapons/crossbow.png'
 export const bulletImg = new Image();
 bulletImg.src = '/projectile/bullet.png'
 
+export const knifeImg = new Image();
+knifeImg.src ='/weapon/knife.png'
+
+export const screwdriverImg = new Image();
+screwdriverImg.src ='/weapon/screwdriver.png'
+
 export const pistolSound = new Audio();
 pistolSound.src = '/weapons/audio/pistol.mp3'
 
