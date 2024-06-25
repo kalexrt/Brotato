@@ -1,5 +1,4 @@
 import { global } from './global';
-import { startGame } from './startgame';
 import { handleGameOver } from './gameover';
 import { keys } from './elements/input';
 import { enemyArray } from './entities/Enemy';
@@ -153,6 +152,6 @@ window.addEventListener('keydown', (e) => {
         }
     }
     if (e.code === 'KeyR' && global.gameOver) {
-        startGame();
+        window.location.reload();
     }
 });
